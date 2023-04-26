@@ -62,6 +62,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/shape_button"
         android:text="Don't have acc ? Register in here"
-        android:textSize="15dp" />
+        android:textSize="15dp"
+        tools:ignore="TextSizeCheck" />
 
 </RelativeLayout>

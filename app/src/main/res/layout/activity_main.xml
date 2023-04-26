@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -89,7 +89,9 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/shape_button"
         android:text="Register"
-        android:textSize="15dp" />
+        android:textColor="#212121"
+        android:textSize="15dp"
+        tools:ignore="TextSizeCheck" />
 
 
 

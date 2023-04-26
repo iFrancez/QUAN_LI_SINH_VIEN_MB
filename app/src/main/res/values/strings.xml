@@ -4,4 +4,10 @@
     <string name="m_n_h_c">Môn học</string>
     <string name="t_c_gi">Tác giả</string>
     <string name="ng_xu_t">Đăng xuất</string>
+    <string name="hello">Hello</string>
+    <string name="c_c_t_c_gi">Các Tác giả</string>
+    <string name="t_c_gi_phan_nguy_n_thanh_ph_p">Tác giả: Phan Nguyễn Thanh Pháp</string>
+    <string name="b_n_c_mu_n_ng_xu_t_kh_ng">Bạn có muốn đăng xuất không ?</string>
+    <string name="c">Có</string>
+    <string name="kh_ng">Không</string>
 </resources>
