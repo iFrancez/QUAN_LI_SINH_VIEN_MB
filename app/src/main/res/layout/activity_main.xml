@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="REGISTER"
+        android:textColor="@color/black"
+        android:textSize="24sp" />
+
+    <EditText
+        android:id="@+id/username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/shape_edittext"
+        android:drawableRight="@drawable/baseline_supervised_user_circle_24"
+        android:hint="User name"
+
+        android:paddingLeft="16dp" />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/username"
+        android:layout_marginTop="20dp"
+
+        android:background="@drawable/shape_edittext"
+        android:drawableRight="@drawable/baseline_visibility_24"
+        android:hint="Pass"
+        android:paddingLeft="16dp" />
+
+    <EditText
+        android:id="@+id/Repassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/password"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_edittext"
+
+        android:drawableRight="@drawable/baseline_visibility_24"
+        android:hint="rePass"
+        android:paddingLeft="16dp" />
+
+
+    <EditText
+        android:id="@+id/edit_text_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_edittext"
+        android:drawableRight="@drawable/baseline_calendar_month_24"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="16dp"
+        android:layout_below="@id/Repassword"
+        android:hint="Select date" />
+
+
+
+
+    <EditText
+        android:id="@+id/number2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edit_text_date"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/shape_edittext"
+        android:drawableRight="@drawable/baseline_local_phone_24"
+
+        android:hint="Your number"
+        android:inputType="number"
+        android:paddingLeft="16dp" />
+
+    <Button
+        android:id="@+id/btnsignup"
+        android:layout_width="331dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/number2"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/shape_button"
+        android:text="Register"
+        android:textSize="15dp" />
+
+
+
+</RelativeLayout>
