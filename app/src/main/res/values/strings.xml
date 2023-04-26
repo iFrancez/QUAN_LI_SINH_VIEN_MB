@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">QUAN_LI_SINH_VIEN</string>
+    <string name="qu_n_l_sinh_vi_n">Quản lý sinh viên</string>
+    <string name="m_n_h_c">Môn học</string>
+    <string name="t_c_gi">Tác giả</string>
+    <string name="ng_xu_t">Đăng xuất</string>
 </resources>
