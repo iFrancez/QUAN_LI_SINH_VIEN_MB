@@ -1,7 +1,5 @@
 package com.example.quan_li_sinh_vien;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -9,11 +7,11 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.text.method.PasswordTransformationMethod;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Calendar;
 
@@ -23,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     Button signup;
     DBHelper DB;
 
+    @SuppressLint({"CutPasteId", "ClickableViewAccessibility"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -43,37 +42,34 @@ public class MainActivity extends AppCompatActivity {
         repassword.setTransformationMethod(new PasswordTransformationMethod());
         DB=new DBHelper(this);
 
-        signup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String user = username.getText().toString();
-                String pass = password.getText().toString();
-                String repass = repassword.getText().toString();
-                String dates = date.getText().toString();
-                String numString = number.getText().toString();
-                if(user.equals("")||pass.equals("")||repass.equals("")||numString.equals("")||dates.equals(""))
-                    Toast.makeText(MainActivity.this,"Please enter all fields",Toast.LENGTH_LONG).show();
-                else{
-                    int num = Integer.parseInt(numString);
-                    if(pass.equals(repass)){
-                        Boolean checkuser = DB.checkusername(user);
-                        if(checkuser==false){
-                            Boolean insert = DB.insertData(user,pass,num,dates);
-                            if(insert==true){
-                                Toast.makeText(MainActivity.this, "Registered successfully", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
-                                startActivity(intent);
-                            }
-                            else{
-                                Toast.makeText(MainActivity.this, "Registered failed", Toast.LENGTH_SHORT).show();
-                            }
+        signup.setOnClickListener(view -> {
+            String user = username.getText().toString();
+            String pass = password.getText().toString();
+            String repass = repassword.getText().toString();
+            String dates = date.getText().toString();
+            String numString = number.getText().toString();
+            if(user.equals("")||pass.equals("")||repass.equals("")||numString.equals("")||dates.equals(""))
+                Toast.makeText(MainActivity.this,"Please enter all fields",Toast.LENGTH_LONG).show();
+            else{
+                int num = Integer.parseInt(numString);
+                if(pass.equals(repass)){
+                    Boolean checkuser = DB.checkusername(user);
+                    if(!checkuser){
+                        Boolean insert = DB.insertData(user,pass,num,dates);
+                        if(insert){
+                            Toast.makeText(MainActivity.this, "Registered successfully", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+                            startActivity(intent);
                         }
                         else{
-                            Toast.makeText(MainActivity.this, "User already exists ! please try again", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Registered failed", Toast.LENGTH_SHORT).show();
                         }
-                    }else{
-                        Toast.makeText(MainActivity.this, "Password not match", Toast.LENGTH_SHORT).show();
                     }
+                    else{
+                        Toast.makeText(MainActivity.this, "User already exists ! please try again", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(MainActivity.this, "Password not match", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -81,48 +77,39 @@ public class MainActivity extends AppCompatActivity {
 
 
         //hide pass
-        password.setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                final int DRAWABLE_RIGHT = 2;
-                if(event.getAction() == MotionEvent.ACTION_UP) {
-                    if(event.getRawX() >= (password.getRight() - password.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        if (password.getInputType() == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
-                            password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                            password.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.baseline_visibility_24, 0);
-                        } else {
-                            password.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                            password.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.baseline_visibility_off_24, 0);
-                        }
-                        return true;
+        password.setOnTouchListener((v, event) -> {
+            final int DRAWABLE_RIGHT = 2;
+            if(event.getAction() == MotionEvent.ACTION_UP) {
+                if(event.getRawX() >= (password.getRight() - password.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                    if (password.getInputType() == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+                        password.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        password.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.baseline_visibility_24, 0);
+                    } else {
+                        password.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                        password.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.baseline_visibility_off_24, 0);
                     }
+                    return true;
                 }
-                return false;
             }
+            return false;
         });
 
         //hidepass2
-        repassword.setOnTouchListener(new View.OnTouchListener() {
-
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                final int DRAWABLE_RIGHT = 2;
-                if(event.getAction() == MotionEvent.ACTION_UP) {
-                    if(event.getRawX() >= (repassword.getRight() - repassword.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
-                        if (repassword.getInputType() == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
-                            repassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                            repassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.baseline_visibility_24, 0);
-                        } else {
-                            repassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                            repassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.baseline_visibility_off_24, 0);
-                        }
-                        return true;
+        repassword.setOnTouchListener((v, event) -> {
+            final int DRAWABLE_RIGHT = 2;
+            if(event.getAction() == MotionEvent.ACTION_UP) {
+                if(event.getRawX() >= (repassword.getRight() - repassword.getCompoundDrawables()[DRAWABLE_RIGHT].getBounds().width())) {
+                    if (repassword.getInputType() == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+                        repassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                        repassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.baseline_visibility_24, 0);
+                    } else {
+                        repassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                        repassword.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.baseline_visibility_off_24, 0);
                     }
+                    return true;
                 }
-                return false;
             }
+            return false;
         });
 
         //date
@@ -133,18 +120,12 @@ public class MainActivity extends AppCompatActivity {
         int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
         final EditText editTextDate = findViewById(R.id.edit_text_date);
-        editTextDate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        // Thiết lập giá trị cho EditText
-                        editTextDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-                    }
-                }, year, month, dayOfMonth);
-                datePickerDialog.show();
-            }
+        editTextDate.setOnClickListener(view -> {
+            @SuppressLint("SetTextI18n") DatePickerDialog datePickerDialog = new DatePickerDialog(MainActivity.this, (view1, year1, monthOfYear, dayOfMonth1) -> {
+                // Thiết lập giá trị cho EditText
+                editTextDate.setText(dayOfMonth1 + "/" + (monthOfYear + 1) + "/" + year1);
+            }, year, month, dayOfMonth);
+            datePickerDialog.show();
         });
 
 
