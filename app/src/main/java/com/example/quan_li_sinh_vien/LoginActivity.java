@@ -47,16 +47,18 @@ public class LoginActivity extends AppCompatActivity {
                 String pass = password.getText().toString();
 
                 if(user.equals("")||pass.equals(""))
-                    Toast.makeText(LoginActivity.this,"Please enter all fields",Toast.LENGTH_LONG).show();
+                    Toast.makeText(LoginActivity.this,"Vui lòng nhập đầy đủ thông tin",Toast.LENGTH_LONG).show();
                 else {
                     Boolean checkuserpass = DB.checkusernamepassword(user,pass);
                     if(checkuserpass==true){
-                        Toast.makeText(LoginActivity.this, "Sign in success", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK); // đặt cờ flag
                         startActivity(intent);
+
                     }
                     else{
-                        Toast.makeText(LoginActivity.this, "Invalid", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Sai tên tài khoản hoặc mật khẩu", Toast.LENGTH_SHORT).show();
                     }
 
                 }

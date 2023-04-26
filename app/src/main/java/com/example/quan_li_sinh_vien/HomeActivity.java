@@ -52,7 +52,7 @@ public class HomeActivity extends AppCompatActivity {
 
         dialog.setContentView(R.layout.dialogexit);
 
-        //Tắt click ngoài là thoát khung
+        //Khi click ngoài là không thoát khung được phải bấm có hoặc không
         dialog.setCanceledOnTouchOutside(false);
 
         Button btnY = dialog.findViewById(R.id.buttonYes);
@@ -63,9 +63,14 @@ public class HomeActivity extends AppCompatActivity {
             Intent intent = new Intent(HomeActivity.this,HomeActivity.class);
             startActivity(intent);
 
+
+
             //Đăng xuất
             Intent intent1 = new Intent(HomeActivity.this,LoginActivity.class);
+            intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent1);
+            finish();
+
         });
 
 
