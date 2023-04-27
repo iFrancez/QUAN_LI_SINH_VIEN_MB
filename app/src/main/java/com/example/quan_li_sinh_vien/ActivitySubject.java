@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.quan_li_sinh_vien.adapter.adaptersubject;
 import com.example.quan_li_sinh_vien.database.database;
@@ -164,6 +165,8 @@ public class ActivitySubject extends AppCompatActivity {
                 //cập nhật lại activity subject
                 Intent intent = new Intent(ActivitySubject.this,ActivitySubject.class);
                 startActivity(intent);
+                Toast.makeText(ActivitySubject.this, "Xoá môn học thành công", Toast.LENGTH_SHORT).show();
+
             }
 
         });

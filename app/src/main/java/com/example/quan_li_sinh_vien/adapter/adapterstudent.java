@@ -60,24 +60,27 @@ public class adapterstudent extends BaseAdapter {
 
         int id = student.getId_student();
 
+        //click delete
         imgbtnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                context.deleteStudent(id);
             }
         });
 
+        //click update
         imgbtnupdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                context.update(id);
             }
         });
 
+        //click infor
         imgbtnInformation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                context.information(id);
             }
         });
         return view;
