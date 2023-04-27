@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ActivityAddSubject">
+    <TextView
+        android:layout_marginTop="80dp"
+        android:textColor="#F44336"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:text="Cập nhật môn học"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></TextView>
+
+    <EditText
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:id="@+id/EditTextUpdateSubjectTitle"
+        android:hint="Cập nhật tên môn học"
+        android:layout_width="300dp"
+        android:layout_height="60dp"></EditText>
+    <EditText
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:id="@+id/EditTextUpdateSubjectCredit"
+        android:hint="Cập nhật số tín chỉ"
+        android:layout_width="300dp"
+        android:layout_height="60dp"></EditText>
+    <EditText
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:id="@+id/EditTextUpdateSubjectTime"
+        android:hint="Cập nhật thời gian học"
+        android:layout_width="300dp"
+        android:layout_height="60dp"></EditText>
+    <EditText
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:id="@+id/EditTextUpdateSubjectPlace"
+        android:hint="Cập nhật nơi học"
+        android:layout_width="300dp"
+        android:layout_height="60dp"></EditText>
+
+    <Button
+
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:text="Cập nhật"
+        android:id="@+id/buttonUpdateSubject"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></Button>
+</LinearLayout>

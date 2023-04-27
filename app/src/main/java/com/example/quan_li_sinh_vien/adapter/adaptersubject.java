@@ -78,7 +78,7 @@ public class adaptersubject extends BaseAdapter {
         imageUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                context.update(id);
             }
         });
         return view;
