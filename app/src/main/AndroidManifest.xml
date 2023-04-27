@@ -12,6 +12,9 @@
         android:theme="@style/Theme.QUAN_LI_SINH_VIEN"
         tools:targetApi="31">
         <activity
+            android:name=".ActivityAddStudent"
+            android:exported="false" />
+        <activity
             android:name=".ActivityUpdateSubject"
             android:exported="false" />
         <activity
@@ -19,7 +22,8 @@
             android:exported="false" />
         <activity
             android:name=".ActivityStudent"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".ActivityAddSubject"
             android:exported="false" />

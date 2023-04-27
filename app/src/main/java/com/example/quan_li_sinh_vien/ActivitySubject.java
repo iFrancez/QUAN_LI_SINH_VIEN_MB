@@ -159,8 +159,9 @@ public class ActivitySubject extends AppCompatActivity {
 
                 //Xoá subject trong csdl
                 database.DeleteSubject(position);
-
-                //
+                //Xoá student
+                database.DeleteSubjectStudent(position);
+                //cập nhật lại activity subject
                 Intent intent = new Intent(ActivitySubject.this,ActivitySubject.class);
                 startActivity(intent);
             }

@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.example.quan_li_sinh_vien.model.Student;
 import com.example.quan_li_sinh_vien.model.Subject;
 
 public class database extends SQLiteOpenHelper {
@@ -80,11 +81,13 @@ public class database extends SQLiteOpenHelper {
             TABLE_SUBJECTS + "(" + ID_SUBJECTS + "))";
 
     //Tạo bảng sinh viên
-    private String SQLQuery4 = "CREATE TABLE " + TABLE_STUDENT + " ( " + ID_STUDENT + " INTEGER primary key AUTOINCREMENT, "
-            + STUDENT_NAME + " TEXT, "
-            + SEX + " TEXT, "
-            + STUDENT_CODE + " TEXT, "
-            + DATE_OF_BIRTH + " TEXT, "
+    private String SQLQuery4 = "CREATE TABLE "+ TABLE_STUDENT +" ( "+ID_STUDENT+" integer primary key AUTOINCREMENT, "
+            +STUDENT_NAME+" TEXT, "
+            +SEX+" TEXT, "
+            +STUDENT_CODE+" TEXT, "
+            +DATE_OF_BIRTH+" TEXT, "
+            +ID_SUBJECTS+" INTEGER , FOREIGN KEY ( "+ ID_SUBJECTS +" ) REFERENCES "+
+            TABLE_SUBJECTS+"("+ID_SUBJECTS+"))";
 
 //            + STUDY_PROCESS + "REAL,"
 //            + MID_TERM + "REAL,"
@@ -92,8 +95,7 @@ public class database extends SQLiteOpenHelper {
 //            + ID_CLASS + " INTEGER , FOREIGN KEY ( " + ID_CLASS + " ) REFERENCES " +
 //            TABLE_CLASS + "(" + ID_CLASS + "))";
 
-            + ID_SUBJECTS + " INTEGER , FOREIGN KEY ( " + ID_SUBJECTS + " ) REFERENCES " +
-            TABLE_SUBJECTS + "(" + ID_SUBJECTS + "))";
+
 
     public database(@Nullable Context context) {
         super(context, DATABASE_NAME, null, VERSION);
@@ -171,6 +173,43 @@ public class database extends SQLiteOpenHelper {
         //getReadableDatabase(): chỉ đọc
         SQLiteDatabase db = this.getWritableDatabase();
         int res = db.delete(TABLE_SUBJECTS, ID_SUBJECTS + "=" + i, null);
+        return res;
+    }
+
+    //dùng để xoá các student của subject
+    public int DeleteSubjectStudent(int i){
+        SQLiteDatabase db = this.getWritableDatabase();
+        int res = db.delete(TABLE_STUDENT,ID_SUBJECTS+" = "+i,null);
+        return res;
+    }
+
+    //insert student
+    public void AddStudent(Student student){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(STUDENT_NAME,student.getStudent_name());
+        values.put(SEX,student.getSex());
+        values.put(STUDENT_CODE,student.getStudent_code());
+        values.put(DATE_OF_BIRTH,student.getDate_of_birth());
+        values.put(ID_SUBJECTS,student.getId_subject());
+
+        db.insert(TABLE_STUDENT,null,values);
+        db.close();
+    }
+
+    //Lấy tất cả sinh viên thuộc môn học đó
+    public Cursor getDataStudent(int id_subject){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("SELECT * FROM "+TABLE_STUDENT+" WHERE "+ID_SUBJECTS+" = "+id_subject,null);
+        return res;
+    }
+
+
+    //Xoá student
+    public int DeleteStudent(int i){
+        SQLiteDatabase db = this.getWritableDatabase();
+        int res = db.delete(TABLE_STUDENT,ID_STUDENT+"="+i,null);
         return res;
     }
 }

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ACA388"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:id="@+id/TextViewStudentName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Họ tên học sinh"
+            android:textColor="#000000"
+            android:textSize="25sp"></TextView>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:text="Mã số sinh viên: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></TextView>
+            <TextView
+                android:id="@+id/TextViewStudentCode"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                android:text="3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"></TextView>
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/studentinformation"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/baseline_subject_24"
+        tools:ignore="SpeakableTextPresentCheck"></ImageButton>
+
+    <ImageButton
+        android:layout_marginLeft="5dp"
+        android:id="@+id/studentupdate"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/baseline_update_24"
+        tools:ignore="SpeakableTextPresentCheck"></ImageButton>
+
+    <ImageButton
+        android:layout_marginLeft="5dp"
+        android:id="@+id/studentdelete"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/baseline_delete_24"
+        tools:ignore="SpeakableTextPresentCheck"></ImageButton>
+</LinearLayout>
