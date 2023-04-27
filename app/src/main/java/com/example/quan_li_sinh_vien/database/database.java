@@ -159,6 +159,21 @@ public class database extends SQLiteOpenHelper {
         return true;
     }
 
+    //kiểm tra xem có tên sinh viên đó hay chưa
+    public Boolean checkStudent(String codeStudent){
+        //projection: là một mảng các cột cần lấy ra từ bảng.
+        //selection: là chuỗi điều kiện để chọn các bản ghi phù hợp.
+        //selectionArgs: là một mảng các giá trị được truyền vào trong chuỗi điều kiện.
+        //query(): là phương thức để thực hiện câu truy vấn trên bảng, và trả về một đối tượng Cursor chứa các bản ghi phù hợp.
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] projection = { STUDENT_CODE };
+        String selection = STUDENT_CODE.toLowerCase() + "=?";
+        String[] selectionArgs = { codeStudent.toLowerCase() };
+        Cursor cursor = db.query(TABLE_STUDENT, projection, selection, selectionArgs, null, null, null);
+        if(cursor.getCount()>0) return true;
+        else return false;
+    }
+
     //lấy giữ liệu subject
     public Cursor getDataSubject() {
         SQLiteDatabase db = this.getReadableDatabase();
