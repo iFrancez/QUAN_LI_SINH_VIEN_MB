@@ -110,4 +110,30 @@ public class ActivitySubject extends AppCompatActivity {
             finish();
         }
     }
+
+    public void information(final int pos){
+        Cursor cursor = database.getDataSubject();
+
+        while (cursor.moveToNext()){
+            int id = cursor.getInt(0);
+            if(id==pos){
+                Intent intent = new Intent(ActivitySubject.this,ActivitySubjectInformation.class);
+
+                intent.putExtra("id",id);
+                String title = cursor.getString(1);
+                int credit = cursor.getInt(2);
+                String time = cursor.getString(3);
+                String place = cursor.getString(4);
+
+                intent.putExtra("title",title);
+                intent.putExtra("credit",credit);
+                intent.putExtra("time",time);
+                intent.putExtra("place",place);
+
+
+
+                startActivity(intent);
+            }
+        }
+    }
 }

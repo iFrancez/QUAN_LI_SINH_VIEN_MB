@@ -67,8 +67,8 @@ public class ActivityAddSubject extends AppCompatActivity {
                     Toast.makeText(ActivityAddSubject.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                 }
                 else{
-//                    Boolean checkSub = database.checkSubject(subjectTitle);
-//                    if(!checkSub) {
+                    Boolean checkSub = database.checkSubject(subjectTitle);
+                    if(!checkSub) {
                         //gán cho đối tượng subject giá trị được nhập vào
                         Subject subject = CreatSubject();
 
@@ -81,10 +81,10 @@ public class ActivityAddSubject extends AppCompatActivity {
 
                         Toast.makeText(ActivityAddSubject.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
                     }
-//                    else{
-//                        Toast.makeText(ActivityAddSubject.this, "Môn học đã tồn tại ! Vui lòng thử lại", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
+                    else{
+                        Toast.makeText(ActivityAddSubject.this, "Môn học đã tồn tại ! Vui lòng thử lại", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
 

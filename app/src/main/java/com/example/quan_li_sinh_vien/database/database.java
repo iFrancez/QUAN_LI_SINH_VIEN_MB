@@ -13,7 +13,7 @@ import com.example.quan_li_sinh_vien.model.Subject;
 public class database extends SQLiteOpenHelper {
 
     //Tên database
-    private static String DATABASE_NAME = "studentmanagement";
+    private static String DATABASE_NAME = "studentmanagement.db";
     //Bản Khoa
     private static String TABLE_MAJORS = "majors";
     private static String ID_MAJORS = "idmajors";
@@ -127,12 +127,21 @@ public class database extends SQLiteOpenHelper {
         db.close();
     }
 
-//    public Boolean checkSubject(String subjectTitle){
-//        SQLiteDatabase MyDB = this.getWritableDatabase();
-//        Cursor cursor = MyDB.rawQuery("Select * from SQLQuery2 where subjectTitle = ?",new String[]{subjectTitle});
-//        if(cursor.getCount()>0) return true;
-//        else return false;
-//    }
+
+    //kiểm tra xem có tên môn học đó hay chưa
+    public Boolean checkSubject(String subjectTitle){
+        //projection: là một mảng các cột cần lấy ra từ bảng.
+        //selection: là chuỗi điều kiện để chọn các bản ghi phù hợp.
+        //selectionArgs: là một mảng các giá trị được truyền vào trong chuỗi điều kiện.
+        //query(): là phương thức để thực hiện câu truy vấn trên bảng, và trả về một đối tượng Cursor chứa các bản ghi phù hợp.
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] projection = { SUBJECT_TITLE };
+        String selection = SUBJECT_TITLE.toLowerCase() + "=?";
+        String[] selectionArgs = { subjectTitle.toLowerCase() };
+        Cursor cursor = db.query(TABLE_SUBJECTS, projection, selection, selectionArgs, null, null, null);
+        if(cursor.getCount()>0) return true;
+        else return false;
+    }
 
     //update subject
     public boolean UpdateSubject(Subject subject, int id) {
@@ -148,6 +157,7 @@ public class database extends SQLiteOpenHelper {
         return true;
     }
 
+    //lấy giữ liệu subject
     public Cursor getDataSubject() {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_SUBJECTS, null);
