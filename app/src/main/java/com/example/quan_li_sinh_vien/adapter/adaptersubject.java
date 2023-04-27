@@ -56,18 +56,25 @@ public class adaptersubject extends BaseAdapter {
         TextViewSubjectTitle.setText(subject.getSubject_title());
 
         int id = subject.getId();
+
+        //click icon thông tin
         imageInformation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 context.information(id);
             }
         });
+
+        //click icon xoá
         imageDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //gọi tới phương thức delete
+                context.delete(id);
             }
         });
+
+        //click icon update
         imageUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

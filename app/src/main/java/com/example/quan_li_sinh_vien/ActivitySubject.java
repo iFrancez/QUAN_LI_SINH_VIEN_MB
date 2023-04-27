@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.quan_li_sinh_vien.adapter.adaptersubject;
@@ -135,5 +137,47 @@ public class ActivitySubject extends AppCompatActivity {
                 startActivity(intent);
             }
         }
+    }
+
+    //Phương thức xoá subject
+    public void delete(final int position){
+        //Đối tượng cửa sổ
+        Dialog dialog = new Dialog(this);
+
+
+        //Nạp layout vào dialog
+        dialog.setContentView(R.layout.dialogdeletesubject);
+
+        dialog.setCanceledOnTouchOutside(false);
+
+        Button btnYes = dialog.findViewById(R.id.buttonYesDeleteSubject);
+        Button btnNo = dialog.findViewById(R.id.buttonNoDeleteSubject);
+
+        btnYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //Xoá subject trong csdl
+                database.DeleteSubject(position);
+
+                //
+                Intent intent = new Intent(ActivitySubject.this,ActivitySubject.class);
+                startActivity(intent);
+            }
+
+        });
+
+        //đóng dialog nếu no
+        btnNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.cancel();
+            }
+        });
+
+        //show dialog
+        dialog.show();
+
+
     }
 }
