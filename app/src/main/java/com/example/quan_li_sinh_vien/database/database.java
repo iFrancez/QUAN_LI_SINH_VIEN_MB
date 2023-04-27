@@ -19,6 +19,11 @@ public class database extends SQLiteOpenHelper {
     private static String ID_MAJORS = "idmajors";
     private static String MAJORS_TITLE = "majorstitle";
 
+    private static String MAJORS_CODE = "majorcode";
+
+    private static int VERSION = 1;
+
+
     //Bảng môn học
     private static String TABLE_SUBJECTS = "subject";
     private static String ID_SUBJECTS = "idsubject";
@@ -26,12 +31,15 @@ public class database extends SQLiteOpenHelper {
     private static String CREDITS = "credits";
     private static String TIME = "time";
     private static String PLACE = "place";
-    private static int VERSION = 1;
+//    private static int VERSION = 1;
 
     //Bảng lớp
     private static String TABLE_CLASS = "class";
     private static String ID_CLASS = "idclass";
     private static String CLASS_TITLE = "classtitle";
+
+    private static String CLASS_CODE = "classcode";
+
 
 
     //Bảng sinh viên
@@ -46,32 +54,36 @@ public class database extends SQLiteOpenHelper {
 
     private static String MID_TERM ="mid";
 
-    private static String END_TERM ="end";
+    private static String END_TERM ="endterm";
 
 
 
 
     //Tạo bảng khoa
     private String SQLQuery = "CREATE TABLE " + TABLE_MAJORS + " ( " + ID_MAJORS + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + MAJORS_TITLE + " TEXT) ";
+            + MAJORS_CODE + "TEXT, "
+            + MAJORS_TITLE + " TEXT)";
 
     //Tạo bảng môn học
     private String SQLQuery2 = "CREATE TABLE " + TABLE_SUBJECTS + " ( " + ID_SUBJECTS + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + SUBJECT_TITLE + " TEXT, "
             + CREDITS + " INTEGER, "
             + TIME + " TEXT, "
+//            + PLACE + " TEXT )";
+
             + PLACE + " TEXT, "
             + ID_MAJORS + " INTEGER , FOREIGN KEY ( " + ID_MAJORS + " ) REFERENCES " +
             TABLE_MAJORS + "(" + ID_MAJORS + "))";
 
     //Tạo bảng lớp
     private String SQLQuery3 = "CREATE TABLE " + TABLE_CLASS + " ( " + ID_CLASS + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + CLASS_CODE + "TEXT, "
             + CLASS_TITLE + " TEXT, "
             +ID_SUBJECTS+" INTEGER , FOREIGN KEY ( "+ ID_SUBJECTS +" ) REFERENCES "+
             TABLE_SUBJECTS+"("+ID_SUBJECTS+"))";
 
     //Tạo bảng sinh viên
-    private String SQLQuery4 = "CREATE TABLE " + TABLE_STUDENT + " ( " + ID_STUDENT + " integer primary key AUTOINCREMENT, "
+    private String SQLQuery4 = "CREATE TABLE " + TABLE_STUDENT + " ( " + ID_STUDENT + " INTEGER primary key AUTOINCREMENT, "
             + STUDENT_NAME + " TEXT, "
             + SEX + " TEXT, "
             + STUDENT_CODE + " TEXT, "
