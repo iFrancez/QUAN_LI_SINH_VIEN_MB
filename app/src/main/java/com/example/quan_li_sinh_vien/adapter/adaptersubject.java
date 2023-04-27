@@ -51,7 +51,8 @@ public class adaptersubject extends BaseAdapter {
         ImageButton imageUpdate = view.findViewById(R.id.subjectupdate);
 
         Subject subject = ArrayListSubject.get(i);
-        TextViewCredit.setText(subject.getNumber_of_credit());
+
+        TextViewCredit.setText(subject.getNumber_of_credit()+"");
         TextViewSubjectTitle.setText(subject.getSubject_title());
 
         int id = subject.getId();
@@ -73,6 +74,6 @@ public class adaptersubject extends BaseAdapter {
 
             }
         });
-        return null;
+        return view;
     }
 }

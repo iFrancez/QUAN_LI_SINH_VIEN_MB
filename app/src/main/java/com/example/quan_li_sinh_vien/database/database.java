@@ -41,7 +41,6 @@ public class database extends SQLiteOpenHelper {
     private static String CLASS_CODE = "classcode";
 
 
-
     //Bảng sinh viên
     private static String TABLE_STUDENT = "student";
     private static String ID_STUDENT = "idstudent";
@@ -52,11 +51,9 @@ public class database extends SQLiteOpenHelper {
 
     private static String STUDY_PROCESS = "studyofprocess";
 
-    private static String MID_TERM ="mid";
+    private static String MID_TERM = "mid";
 
-    private static String END_TERM ="endterm";
-
-
+    private static String END_TERM = "endterm";
 
 
     //Tạo bảng khoa
@@ -69,18 +66,18 @@ public class database extends SQLiteOpenHelper {
             + SUBJECT_TITLE + " TEXT, "
             + CREDITS + " INTEGER, "
             + TIME + " TEXT, "
-//            + PLACE + " TEXT )";
+            + PLACE + " TEXT )";
 
-            + PLACE + " TEXT, "
-            + ID_MAJORS + " INTEGER , FOREIGN KEY ( " + ID_MAJORS + " ) REFERENCES " +
-            TABLE_MAJORS + "(" + ID_MAJORS + "))";
+//            + PLACE + " TEXT, "
+//            + ID_MAJORS + " INTEGER , FOREIGN KEY ( " + ID_MAJORS + " ) REFERENCES " +
+//            TABLE_MAJORS + "(" + ID_MAJORS + "))";
 
     //Tạo bảng lớp
     private String SQLQuery3 = "CREATE TABLE " + TABLE_CLASS + " ( " + ID_CLASS + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + CLASS_CODE + "TEXT, "
             + CLASS_TITLE + " TEXT, "
-            +ID_SUBJECTS+" INTEGER , FOREIGN KEY ( "+ ID_SUBJECTS +" ) REFERENCES "+
-            TABLE_SUBJECTS+"("+ID_SUBJECTS+"))";
+            + ID_SUBJECTS + " INTEGER , FOREIGN KEY ( " + ID_SUBJECTS + " ) REFERENCES " +
+            TABLE_SUBJECTS + "(" + ID_SUBJECTS + "))";
 
     //Tạo bảng sinh viên
     private String SQLQuery4 = "CREATE TABLE " + TABLE_STUDENT + " ( " + ID_STUDENT + " INTEGER primary key AUTOINCREMENT, "
@@ -88,11 +85,15 @@ public class database extends SQLiteOpenHelper {
             + SEX + " TEXT, "
             + STUDENT_CODE + " TEXT, "
             + DATE_OF_BIRTH + " TEXT, "
-            + STUDY_PROCESS + "REAL,"
-            + MID_TERM + "REAL,"
-            + END_TERM +"REAL,"
-            + ID_CLASS + " INTEGER , FOREIGN KEY ( " + ID_CLASS + " ) REFERENCES " +
-            TABLE_CLASS + "(" + ID_CLASS + "))";
+
+//            + STUDY_PROCESS + "REAL,"
+//            + MID_TERM + "REAL,"
+//            + END_TERM +"REAL,"
+//            + ID_CLASS + " INTEGER , FOREIGN KEY ( " + ID_CLASS + " ) REFERENCES " +
+//            TABLE_CLASS + "(" + ID_CLASS + "))";
+
+            + ID_SUBJECTS + " INTEGER , FOREIGN KEY ( " + ID_SUBJECTS + " ) REFERENCES " +
+            TABLE_SUBJECTS + "(" + ID_SUBJECTS + "))";
 
     public database(@Nullable Context context) {
         super(context, DATABASE_NAME, null, VERSION);
@@ -100,9 +101,9 @@ public class database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL(SQLQuery);
+//        sqLiteDatabase.execSQL(SQLQuery);
         sqLiteDatabase.execSQL(SQLQuery2);
-        sqLiteDatabase.execSQL(SQLQuery3);
+//        sqLiteDatabase.execSQL(SQLQuery3);
         sqLiteDatabase.execSQL(SQLQuery4);
     }
 
@@ -113,46 +114,53 @@ public class database extends SQLiteOpenHelper {
 
 
     //insert subject
-    public void AddSubject(Subject subject){
-        SQLiteDatabase db=this.getWritableDatabase();
+    public void AddSubject(Subject subject) {
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
-        values.put(SUBJECT_TITLE,subject.getSubject_title());
-        values.put(CREDITS,subject.getNumber_of_credit());
-        values.put(TIME,subject.getTime());
-        values.put(PLACE,subject.getPlace());
+        values.put(SUBJECT_TITLE, subject.getSubject_title());
+        values.put(CREDITS, subject.getNumber_of_credit());
+        values.put(TIME, subject.getTime());
+        values.put(PLACE, subject.getPlace());
 
-        db.insert(TABLE_SUBJECTS,null,values);
+        db.insert(TABLE_SUBJECTS, null, values);
         db.close();
     }
 
+//    public Boolean checkSubject(String subjectTitle){
+//        SQLiteDatabase MyDB = this.getWritableDatabase();
+//        Cursor cursor = MyDB.rawQuery("Select * from SQLQuery2 where subjectTitle = ?",new String[]{subjectTitle});
+//        if(cursor.getCount()>0) return true;
+//        else return false;
+//    }
+
     //update subject
-    public boolean UpdateSubject(Subject subject,int id){
-        SQLiteDatabase db=this.getWritableDatabase();
+    public boolean UpdateSubject(Subject subject, int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(SUBJECT_TITLE,subject.getSubject_title());
-        values.put(CREDITS,subject.getNumber_of_credit());
-        values.put(TIME,subject.getTime());
-        values.put(PLACE,subject.getPlace());
+        values.put(SUBJECT_TITLE, subject.getSubject_title());
+        values.put(CREDITS, subject.getNumber_of_credit());
+        values.put(TIME, subject.getTime());
+        values.put(PLACE, subject.getPlace());
 
-        db.update(TABLE_SUBJECTS,values,ID_SUBJECTS+"="+id,null);
+        db.update(TABLE_SUBJECTS, values, ID_SUBJECTS + "=" + id, null);
         return true;
     }
 
-    public Cursor getDataSubject(){
+    public Cursor getDataSubject() {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM "+TABLE_SUBJECTS,null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_SUBJECTS, null);
         return cursor;
     }
 
-    public int DeleteSubject(int i){
+    public int DeleteSubject(int i) {
 
         //Chú ý:
         //getWritableDatabase(): là cả đọc và ghi
         //getReadableDatabase(): chỉ đọc
         SQLiteDatabase db = this.getWritableDatabase();
-        int res = db.delete(TABLE_SUBJECTS,ID_SUBJECTS+"="+i,null);
+        int res = db.delete(TABLE_SUBJECTS, ID_SUBJECTS + "=" + i, null);
         return res;
     }
 }
