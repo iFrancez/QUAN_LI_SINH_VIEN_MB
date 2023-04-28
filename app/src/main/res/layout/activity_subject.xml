@@ -13,7 +13,27 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
     </androidx.appcompat.widget.Toolbar>
-    
+
+    <EditText
+        android:id="@+id/editTextSearchSubject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Tìm kiếm tên môn học" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+        android:id="@+id/buttonEnterSearchSubject"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Tìm kiếm" />
+        <Button
+            android:id="@+id/buttonRefreshSubject"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cập nhật lại" />
+    </LinearLayout>
+
     <ListView
         android:id="@+id/listviewSubject"
         android:layout_width="match_parent"

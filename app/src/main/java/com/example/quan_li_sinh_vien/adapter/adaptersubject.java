@@ -83,4 +83,9 @@ public class adaptersubject extends BaseAdapter {
         });
         return view;
     }
+
+    public void clear() {
+        ArrayListSubject.clear();
+        notifyDataSetChanged();
+    }
 }

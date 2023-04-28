@@ -8,11 +8,13 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -21,12 +23,17 @@ import com.example.quan_li_sinh_vien.database.database;
 import com.example.quan_li_sinh_vien.model.Subject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ActivitySubject extends AppCompatActivity {
 
+    EditText searchEditTextSubject;
+    Button searchButtonSubject,buttonRefresh;
     Toolbar toolbar;
     ListView listViewSubject;
     ArrayList<Subject> ArrayListSubject;
+    ArrayList<Subject> searchResults;
+
     com.example.quan_li_sinh_vien.database.database database;
     com.example.quan_li_sinh_vien.adapter.adaptersubject adaptersubject;
     int count = 0;
@@ -35,6 +42,11 @@ public class ActivitySubject extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_subject);
+
+        searchEditTextSubject = findViewById(R.id.editTextSearchSubject);
+        searchButtonSubject = findViewById(R.id.buttonEnterSearchSubject);
+        buttonRefresh = findViewById(R.id.buttonRefreshSubject);
+
 
         toolbar = findViewById(R.id.toolbarSubject);
         listViewSubject = findViewById(R.id.listviewSubject);
@@ -45,6 +57,8 @@ public class ActivitySubject extends AppCompatActivity {
         database = new database(this);
 
         ArrayListSubject = new ArrayList<>();
+        searchResults = new ArrayList<>();
+
 
         Cursor cursor = database.getDataSubject();
         while (cursor.moveToNext()) {
@@ -63,18 +77,83 @@ public class ActivitySubject extends AppCompatActivity {
         cursor.moveToFirst();
         cursor.close();
 
+        //tìm kiếm môn học
+        searchButtonSubject.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String searchQuery = searchEditTextSubject.getText().toString();
+                searchSubjects(searchQuery);
+            }
+        });
+
+        //Cập nhật lại môn học
+        buttonRefresh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+
+                // Tải lại dữ liệu ban đầu
+                ArrayListSubject.clear();
+                Cursor cursor = database.getDataSubject();
+                while (cursor.moveToNext()) {
+                    int id = cursor.getInt(0);
+                    String title = cursor.getString(1);
+                    int credit = cursor.getInt(2);
+                    String time = cursor.getString(3);
+                    String place = cursor.getString(4);
+
+                    ArrayListSubject.add(new Subject(id, title, credit, time, place));
+                }
+                cursor.close();
+
+                // Cập nhật lại adapter cho ListView
+                adaptersubject = new adaptersubject(ActivitySubject.this, ArrayListSubject);
+                listViewSubject.setAdapter(adaptersubject);
+            }
+        });
+
+        
         //Tạo sự kiện click vào item subject
         listViewSubject.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent=new Intent(ActivitySubject.this,ActivityStudent.class);
-                int id_subject=ArrayListSubject.get(i).getId();
+                Intent intent = new Intent(ActivitySubject.this, ActivityStudent.class);
+                int id_subject;
+                if (searchResults.isEmpty()) {
+                    id_subject = ArrayListSubject.get(i).getId();
+                } else {
+                    id_subject = searchResults.get(i).getId();
+                }
                 //truyền dữ liệu vào
-                intent.putExtra("id_subject",id_subject);
+                intent.putExtra("id_subject", id_subject);
                 startActivity(intent);
             }
         });
     }
+
+    //hàm tìm kiếm môn học
+    private void searchSubjects(String searchQuery) {
+        searchResults.clear();
+        for (Subject subject : ArrayListSubject) {
+            if (subject.getSubject_title().toLowerCase().contains(searchQuery.toLowerCase())) {
+                searchResults.add(subject);
+            }
+        }
+        if (searchResults.size() > 0) {
+            adaptersubject = new adaptersubject(ActivitySubject.this, searchResults);
+            listViewSubject.setAdapter(adaptersubject);
+            adaptersubject.notifyDataSetChanged();
+        } else {
+            Toast.makeText(this, "Không tìm thấy tên môn học", Toast.LENGTH_SHORT).show();
+            adaptersubject.clear();
+            listViewSubject.setAdapter(adaptersubject);
+        }
+        //resetEditTextSubject
+        searchEditTextSubject.setText("");
+    }
+
+
 
     //thêm 1 menu là add vào toolbar
     @Override
@@ -114,25 +193,24 @@ public class ActivitySubject extends AppCompatActivity {
         }
     }
 
-    public void information(final int pos){
+    public void information(final int pos) {
         Cursor cursor = database.getDataSubject();
 
-        while (cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
-            if(id==pos){
-                Intent intent = new Intent(ActivitySubject.this,ActivitySubjectInformation.class);
+            if (id == pos) {
+                Intent intent = new Intent(ActivitySubject.this, ActivitySubjectInformation.class);
 
-                intent.putExtra("id",id);
+                intent.putExtra("id", id);
                 String title = cursor.getString(1);
                 int credit = cursor.getInt(2);
                 String time = cursor.getString(3);
                 String place = cursor.getString(4);
 
-                intent.putExtra("title",title);
-                intent.putExtra("credit",credit);
-                intent.putExtra("time",time);
-                intent.putExtra("place",place);
-
+                intent.putExtra("title", title);
+                intent.putExtra("credit", credit);
+                intent.putExtra("time", time);
+                intent.putExtra("place", place);
 
 
                 startActivity(intent);
@@ -141,7 +219,7 @@ public class ActivitySubject extends AppCompatActivity {
     }
 
     //Phương thức xoá subject
-    public void delete(final int position){
+    public void delete(final int position) {
         //Đối tượng cửa sổ
         Dialog dialog = new Dialog(this);
 
@@ -163,7 +241,7 @@ public class ActivitySubject extends AppCompatActivity {
                 //Xoá student
                 database.DeleteSubjectStudent(position);
                 //cập nhật lại activity subject
-                Intent intent = new Intent(ActivitySubject.this,ActivitySubject.class);
+                Intent intent = new Intent(ActivitySubject.this, ActivitySubject.class);
                 startActivity(intent);
                 Toast.makeText(ActivitySubject.this, "Xoá môn học thành công", Toast.LENGTH_SHORT).show();
 
@@ -183,25 +261,25 @@ public class ActivitySubject extends AppCompatActivity {
         dialog.show();
     }
 
-    public void update(final int pos){
+    public void update(final int pos) {
         Cursor cursor = database.getDataSubject();
 
-        while(cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
 
-            if(id==pos){
-                Intent intent = new Intent(ActivitySubject.this,ActivityUpdateSubject.class);
+            if (id == pos) {
+                Intent intent = new Intent(ActivitySubject.this, ActivityUpdateSubject.class);
                 String title = cursor.getString(1);
                 int credit = cursor.getInt(2);
                 String time = cursor.getString(3);
                 String place = cursor.getString(4);
 
                 //Gửi dữ liệu qua activity update
-                intent.putExtra("id",id);
-                intent.putExtra("title",title);
-                intent.putExtra("credit",credit);
-                intent.putExtra("time",time);
-                intent.putExtra("place",place);
+                intent.putExtra("id", id);
+                intent.putExtra("title", title);
+                intent.putExtra("credit", credit);
+                intent.putExtra("time", time);
+                intent.putExtra("place", place);
 
                 startActivity(intent);
             }

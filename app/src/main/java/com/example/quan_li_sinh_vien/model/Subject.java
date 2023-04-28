@@ -29,6 +29,7 @@ public class Subject {
         this.place = place;
     }
 
+
     public int getId() {
         return id;
     }

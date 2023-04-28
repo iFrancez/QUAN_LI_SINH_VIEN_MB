@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="350dp"
-    android:layout_height="200dp"
+    android:layout_height="250dp"
     android:background="#92AAAE"
     android:orientation="vertical"
     tools:ignore="TextSizeCheck">
@@ -12,13 +12,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="Bạn có muốn thêm sinh viên không ?"
+        android:text="Bạn có muốn thêm sinh viên không ?\nKhông thể thay đổi MSSV nếu đã thêm vào danh sách"
         android:textSize="25sp"></TextView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:orientation="horizontal">
 

@@ -13,8 +13,10 @@ import com.example.quan_li_sinh_vien.model.Subject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class database extends SQLiteOpenHelper {
@@ -118,7 +120,6 @@ public class database extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
     }
-
 
     //insert subject
     public void AddSubject(Subject subject) {
