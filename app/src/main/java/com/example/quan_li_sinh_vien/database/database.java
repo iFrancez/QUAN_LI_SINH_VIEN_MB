@@ -11,6 +11,12 @@ import androidx.annotation.Nullable;
 import com.example.quan_li_sinh_vien.model.Student;
 import com.example.quan_li_sinh_vien.model.Subject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+
 public class database extends SQLiteOpenHelper {
 
     //Tên database
@@ -81,20 +87,19 @@ public class database extends SQLiteOpenHelper {
             TABLE_SUBJECTS + "(" + ID_SUBJECTS + "))";
 
     //Tạo bảng sinh viên
-    private String SQLQuery4 = "CREATE TABLE "+ TABLE_STUDENT +" ( "+ID_STUDENT+" integer primary key AUTOINCREMENT, "
-            +STUDENT_NAME+" TEXT, "
-            +SEX+" TEXT, "
-            +STUDENT_CODE+" TEXT, "
-            +DATE_OF_BIRTH+" TEXT, "
-            +ID_SUBJECTS+" INTEGER , FOREIGN KEY ( "+ ID_SUBJECTS +" ) REFERENCES "+
-            TABLE_SUBJECTS+"("+ID_SUBJECTS+"))";
+    private String SQLQuery4 = "CREATE TABLE " + TABLE_STUDENT + " ( " + ID_STUDENT + " integer primary key AUTOINCREMENT, "
+            + STUDENT_NAME + " TEXT, "
+            + SEX + " TEXT, "
+            + STUDENT_CODE + " TEXT, "
+            + DATE_OF_BIRTH + " TEXT, "
+            + ID_SUBJECTS + " INTEGER , FOREIGN KEY ( " + ID_SUBJECTS + " ) REFERENCES " +
+            TABLE_SUBJECTS + "(" + ID_SUBJECTS + "))";
 
 //            + STUDY_PROCESS + "REAL,"
 //            + MID_TERM + "REAL,"
 //            + END_TERM +"REAL,"
 //            + ID_CLASS + " INTEGER , FOREIGN KEY ( " + ID_CLASS + " ) REFERENCES " +
 //            TABLE_CLASS + "(" + ID_CLASS + "))";
-
 
 
     public database(@Nullable Context context) {
@@ -131,55 +136,45 @@ public class database extends SQLiteOpenHelper {
 
 
     //kiểm tra xem có tên môn học đó hay chưa
-    public Boolean checkSubject(String subjectTitle){
+    public Boolean checkSubject(String subjectTitle) {
         //projection: là một mảng các cột cần lấy ra từ bảng.
         //selection: là chuỗi điều kiện để chọn các bản ghi phù hợp.
         //selectionArgs: là một mảng các giá trị được truyền vào trong chuỗi điều kiện.
         //query(): là phương thức để thực hiện câu truy vấn trên bảng, và trả về một đối tượng Cursor chứa các bản ghi phù hợp.
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] projection = { SUBJECT_TITLE };
+        String[] projection = {SUBJECT_TITLE};
         String selection = SUBJECT_TITLE.toLowerCase() + "=?";
-        String[] selectionArgs = { subjectTitle.toLowerCase() };
+        String[] selectionArgs = {subjectTitle.toLowerCase()};
         Cursor cursor = db.query(TABLE_SUBJECTS, projection, selection, selectionArgs, null, null, null);
-        if(cursor.getCount()>0) return true;
+        if (cursor.getCount() > 0) return true;
         else return false;
     }
 
     //update subject
     public boolean UpdateSubject(Subject subject, int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-
-        // Kiểm tra môn học đã tồn tại trong database hay chưa
-        String subjectName = subject.getSubject_title();
-        boolean isSubjectExists = checkSubject(subjectName);
-
-        if (!isSubjectExists) {
-            ContentValues values = new ContentValues();
-            values.put(SUBJECT_TITLE, subjectName);
-            values.put(CREDITS, subject.getNumber_of_credit());
-            values.put(TIME, subject.getTime());
-            values.put(PLACE, subject.getPlace());
-            db.update(TABLE_SUBJECTS, values, ID_SUBJECTS + "=" + id, null);
-            return true;
-        } else {
-            return false;
-        }
+        ContentValues values = new ContentValues();
+        values.put(SUBJECT_TITLE, subject.getSubject_title());
+        values.put(CREDITS, subject.getNumber_of_credit());
+        values.put(TIME, subject.getTime());
+        values.put(PLACE, subject.getPlace());
+        db.update(TABLE_SUBJECTS, values, ID_SUBJECTS + "=" + id, null);
+        return true;
     }
 
 
-
     //kiểm tra xem có tên sinh viên đó hay chưa
-    public Boolean checkStudent(String codeStudent){
+    public Boolean checkStudent(String codeStudent) {
         //projection: là một mảng các cột cần lấy ra từ bảng.
         //selection: là chuỗi điều kiện để chọn các bản ghi phù hợp.
         //selectionArgs: là một mảng các giá trị được truyền vào trong chuỗi điều kiện.
         //query(): là phương thức để thực hiện câu truy vấn trên bảng, và trả về một đối tượng Cursor chứa các bản ghi phù hợp.
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] projection = { STUDENT_CODE };
+        String[] projection = {STUDENT_CODE};
         String selection = STUDENT_CODE.toLowerCase() + "=?";
-        String[] selectionArgs = { codeStudent.toLowerCase() };
+        String[] selectionArgs = {codeStudent.toLowerCase()};
         Cursor cursor = db.query(TABLE_STUDENT, projection, selection, selectionArgs, null, null, null);
-        if(cursor.getCount()>0) return true;
+        if (cursor.getCount() > 0) return true;
         else return false;
     }
 
@@ -201,60 +196,91 @@ public class database extends SQLiteOpenHelper {
     }
 
     //dùng để xoá các student của subject
-    public int DeleteSubjectStudent(int i){
+    public int DeleteSubjectStudent(int i) {
         SQLiteDatabase db = this.getWritableDatabase();
-        int res = db.delete(TABLE_STUDENT,ID_SUBJECTS+" = "+i,null);
+        int res = db.delete(TABLE_STUDENT, ID_SUBJECTS + " = " + i, null);
         return res;
     }
 
     //insert student
-    public void AddStudent(Student student){
+    public void AddStudent(Student student) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(STUDENT_NAME,student.getStudent_name());
-        values.put(SEX,student.getSex());
-        values.put(STUDENT_CODE,student.getStudent_code());
-        values.put(DATE_OF_BIRTH,student.getDate_of_birth());
-        values.put(ID_SUBJECTS,student.getId_subject());
+        values.put(STUDENT_NAME, student.getStudent_name());
+        values.put(SEX, student.getSex());
+        values.put(STUDENT_CODE, student.getStudent_code());
+        values.put(DATE_OF_BIRTH, student.getDate_of_birth());
+        values.put(ID_SUBJECTS, student.getId_subject());
 
-        db.insert(TABLE_STUDENT,null,values);
+        db.insert(TABLE_STUDENT, null, values);
         db.close();
     }
 
     //Lấy tất cả sinh viên thuộc môn học đó
-    public Cursor getDataStudent(int id_subject){
+    public Cursor getDataStudent(int id_subject) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM "+TABLE_STUDENT+" WHERE "+ID_SUBJECTS+" = "+id_subject,null);
+        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_STUDENT + " WHERE " + ID_SUBJECTS + " = " + id_subject, null);
         return res;
     }
 
 
     //Xoá student
-    public int DeleteStudent(int i){
+    public int DeleteStudent(int i) {
         SQLiteDatabase db = this.getWritableDatabase();
-        int res = db.delete(TABLE_STUDENT,ID_STUDENT+"="+i,null);
+        int res = db.delete(TABLE_STUDENT, ID_STUDENT + "=" + i, null);
         return res;
     }
 
     //cập nhật sv
-    public boolean UpdateStudent(Student student,int id){
+    public boolean UpdateStudent(Student student, int id) {
         SQLiteDatabase db = this.getWritableDatabase();
-
-        // Kiểm tra sv đã tồn tại trong database hay chưa
-        String studentName = student.getStudent_code();
-        boolean isStudentExists = checkStudent(studentName);
-
-        if(!isStudentExists) {
-            ContentValues values = new ContentValues();
-            values.put(STUDENT_NAME, student.getStudent_name());
-            values.put(STUDENT_CODE, student.getStudent_code());
-            values.put(SEX, student.getSex());
-            values.put(DATE_OF_BIRTH, student.getDate_of_birth());
-            db.update(TABLE_STUDENT, values, ID_STUDENT + " = " + id, null);
+        ContentValues values = new ContentValues();
+        values.put(STUDENT_NAME, student.getStudent_name());
+        values.put(STUDENT_CODE, student.getStudent_code());
+        values.put(SEX, student.getSex());
+        values.put(DATE_OF_BIRTH, student.getDate_of_birth());
+        db.update(TABLE_STUDENT, values, ID_STUDENT + " = " + id, null);
+        boolean isStudentDate = isValidDate(student.getDate_of_birth());
+        if (isStudentDate) {
             return true;
+        } else {
+            return false;
         }
-        else{
+    }
+
+    //kiểm tra xem ngày sinh hợp lệ hay không
+    private boolean isValidDate(String input) {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        format.setLenient(false);
+        try {
+            Date date = format.parse(input);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+            int month = calendar.get(Calendar.MONTH) + 1;
+            int year = calendar.get(Calendar.YEAR);
+            if (year < 0) {
+                return false;
+            }
+            if (month < 1 || month > 12) {
+                return false;
+            }
+            if (day < 1 || day > 31) {
+                return false;
+            }
+            if (month == 4 || month == 6 || month == 9 || month == 11) {
+                return (day <= 30);
+            }
+            if (month == 2) {
+                if (year % 4 == 0) {
+                    return (day <= 29);
+                } else {
+                    return (day <= 28);
+                }
+            }
+            return true;
+        } catch (ParseException e) {
             return false;
         }
     }

@@ -21,7 +21,9 @@
         android:id="@+id/EditTextUpdateSubjectTitle"
         android:hint="Cập nhật tên môn học"
         android:layout_width="300dp"
-        android:layout_height="60dp"></EditText>
+        android:layout_height="60dp"
+        android:enabled="true"
+        android:focusable="false"></EditText>
     <EditText
         android:layout_marginTop="20dp"
         android:layout_gravity="center"

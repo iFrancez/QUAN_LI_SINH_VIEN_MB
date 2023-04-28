@@ -15,10 +15,11 @@ import com.example.quan_li_sinh_vien.model.Subject;
 
 public class ActivityUpdateSubject extends AppCompatActivity {
 
-    EditText editUpdateTitle,editUpdateCredit,editUpdateTime,editUpdatePlace;
+    EditText editUpdateTitle, editUpdateCredit, editUpdateTime, editUpdatePlace;
     Button btnUpdateSubject;
 
     com.example.quan_li_sinh_vien.database.database database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,14 +34,14 @@ public class ActivityUpdateSubject extends AppCompatActivity {
         //lấy dữ liệu intent
         Intent intent = getIntent();
 
-        int id = intent.getIntExtra("id",0);
+        int id = intent.getIntExtra("id", 0);
         String title = intent.getStringExtra("title");
-        int credit = intent.getIntExtra("credit",0);
+        int credit = intent.getIntExtra("credit", 0);
         String time = intent.getStringExtra("time");
         String place = intent.getStringExtra("place");
 
         editUpdateTitle.setText(title);
-        editUpdateCredit.setText(credit+"");
+        editUpdateCredit.setText(credit + "");
         editUpdateTime.setText(time);
         editUpdatePlace.setText(place);
 
@@ -73,24 +74,16 @@ public class ActivityUpdateSubject extends AppCompatActivity {
                 String time = editUpdateTime.getText().toString().trim();
                 String place = editUpdatePlace.getText().toString().trim();
 
-                if(subjecttitle.equals("")||credit.equals("")||time.equals("")||place.equals("")){
+                if (subjecttitle.equals("") || credit.equals("") || time.equals("") || place.equals("")) {
                     Toast.makeText(ActivityUpdateSubject.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Subject subject = updatesubject();
+                } else {
+                    Subject subject = createSubject();
 
-                    if(database.UpdateSubject(subject,id)==true){
-                        //update thành công thì qua activity subject
-                        Intent intent = new Intent(ActivityUpdateSubject.this,ActivitySubject.class);
-                        startActivity(intent);
-                        Toast.makeText(ActivityUpdateSubject.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
-                    }
-                    else{
-                        Toast.makeText(ActivityUpdateSubject.this, "Môn học đã tồn tại ! Vui lòng thử lại", Toast.LENGTH_SHORT).show();
-
-                    }
-
-
+                    database.UpdateSubject(subject, id);
+                    //update thành công thì qua activity subject
+                    Intent intent = new Intent(ActivityUpdateSubject.this, ActivitySubject.class);
+                    startActivity(intent);
+                    Toast.makeText(ActivityUpdateSubject.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -108,13 +101,13 @@ public class ActivityUpdateSubject extends AppCompatActivity {
     }
 
     //lưu trữ dữ liệu cập nhật
-    private Subject updatesubject(){
+    private Subject createSubject() {
         String subjecttitle = editUpdateTitle.getText().toString().trim();
         int credit = Integer.parseInt(editUpdateCredit.getText().toString().trim());
         String time = editUpdateTime.getText().toString().trim();
         String place = editUpdatePlace.getText().toString().trim();
 
-        Subject subject = new Subject(subjecttitle,credit,time,place);
+        Subject subject = new Subject(subjecttitle, credit, time, place);
         return subject;
     }
 }

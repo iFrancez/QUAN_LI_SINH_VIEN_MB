@@ -6,36 +6,39 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ActivityAddSubject">
+
     <TextView
-        android:layout_marginTop="80dp"
-        android:textColor="#F44336"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:text="Cập nhật sinh viên"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></TextView>
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:gravity="center"
+        android:text="Cập nhật sinh viên"
+        android:textColor="#F44336"
+        android:textStyle="bold"></TextView>
 
     <EditText
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
         android:id="@+id/EditTextUpdateStudentName"
-        android:hint="Cập nhật họ tên học sinh"
         android:layout_width="300dp"
-        android:layout_height="60dp"></EditText>
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:hint="Cập nhật họ tên học sinh"></EditText>
+
     <TextView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:textColor="#000000"
-        android:textSize="20sp"
         android:text="Cập nhật giới tính: "
-        android:layout_gravity="center"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"></TextView>
+        android:textColor="#000000"
+        android:textSize="20sp"></TextView>
+
     <RadioGroup
-        android:layout_gravity="center"
-        android:paddingTop="15dp"
-        android:orientation="horizontal"
         android:layout_width="300dp"
-        android:layout_height="70dp">
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:paddingTop="15dp">
 
         <RadioButton
             android:id="@+id/radiobuttonUpdateMale"
@@ -57,28 +60,30 @@
     </RadioGroup>
 
     <EditText
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
         android:id="@+id/EditTextUpdateStudentCode"
-        android:hint="Cập nhật mã số sinh viên"
         android:layout_width="300dp"
-        android:layout_height="60dp"></EditText>
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:hint="Cập nhật mã số sinh viên"
+        android:enabled="true"
+        android:focusable="false"></EditText>
 
     <EditText
-        android:inputType="datetime"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
         android:id="@+id/EditTextUpdateStudentBirth"
-        android:hint="Cập nhập ngày sinh"
         android:layout_width="300dp"
-        android:layout_height="60dp"></EditText>
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:hint="Cập nhập ngày sinh"
+        android:inputType="datetime"></EditText>
 
     <Button
 
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        android:text="Cập nhật"
         android:id="@+id/buttonUpdateStudent"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></Button>
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="Cập nhật"></Button>
 </LinearLayout>

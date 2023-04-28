@@ -20,6 +20,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class ActivityAddStudent extends AppCompatActivity {
 
@@ -96,7 +97,9 @@ public class ActivityAddStudent extends AppCompatActivity {
 
                 if (name.equals("") || code.equals("") || birthday.equals("") || sex.equals("")) {
                     Toast.makeText(ActivityAddStudent.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
-                } else {
+                }  else if (!isValidDate(birthday)) {
+                    Toast.makeText(ActivityAddStudent.this, "Ngày sinh không hợp lệ", Toast.LENGTH_SHORT).show();
+                }else {
                     Boolean checkStudents = database.checkStudent(code);
                     if (!checkStudents) {
                         Student student = CreateStudent(id_subject);
@@ -141,5 +144,40 @@ public class ActivityAddStudent extends AppCompatActivity {
         return student;
     }
 
+    //kiểm tra xem ngày sinh hợp lệ hay không
+    private boolean isValidDate(String input) {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        format.setLenient(false);
+        try {
+            Date date = format.parse(input);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+            int month = calendar.get(Calendar.MONTH) + 1;
+            int year = calendar.get(Calendar.YEAR);
+            if (year < 0) {
+                return false;
+            }
+            if (month < 1 || month > 12) {
+                return false;
+            }
+            if (day < 1 || day > 31) {
+                return false;
+            }
+            if (month == 4 || month == 6 || month == 9 || month == 11) {
+                return (day <= 30);
+            }
+            if (month == 2) {
+                if (year % 4 == 0) {
+                    return (day <= 29);
+                } else {
+                    return (day <= 28);
+                }
+            }
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
+    }
 
 }
