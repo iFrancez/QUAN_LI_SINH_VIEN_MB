@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +27,7 @@ public class ActivityAddSubject extends AppCompatActivity {
 
         buttonAddSubject = findViewById(R.id.buttonAddSubject);
         editSubjectCredit = findViewById(R.id.EditTextSubjectCredit);
+        editSubjectCredit.setInputType(InputType.TYPE_CLASS_NUMBER); //nhập được số thôi
         editSubjectTime = findViewById(R.id.EditTextSubjectTime);
         editSubjectPlace = findViewById(R.id.EditTextSubjectPlace);
         editSubjectTitle = findViewById(R.id.EditTextSubjectTitle);

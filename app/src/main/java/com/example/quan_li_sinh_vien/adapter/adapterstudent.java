@@ -85,4 +85,9 @@ public class adapterstudent extends BaseAdapter {
         });
         return view;
     }
+
+    public void clear() {
+        ArrayListStudent.clear();
+        notifyDataSetChanged();
+    }
 }

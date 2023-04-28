@@ -13,7 +13,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
         date = (EditText)findViewById(R.id.edit_text_date);
 
         number = (EditText)findViewById(R.id.number2);
+        number.setInputType(InputType.TYPE_CLASS_NUMBER); //nhập được số thôi
+
         signup = (Button) findViewById(R.id.btnsignup);
 
         //mặc định dấu chấm pass
@@ -49,27 +54,30 @@ public class MainActivity extends AppCompatActivity {
             String dates = date.getText().toString();
             String numString = number.getText().toString();
             if(user.equals("")||pass.equals("")||repass.equals("")||numString.equals("")||dates.equals(""))
-                Toast.makeText(MainActivity.this,"Please enter all fields",Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this,"Vui lòng nhập đầy đủ thông tin",Toast.LENGTH_LONG).show();
             else{
                 int num = Integer.parseInt(numString);
                 if(pass.equals(repass)){
-                    Boolean checkuser = DB.checkusername(user);
-                    if(!checkuser){
-                        Boolean insert = DB.insertData(user,pass,num,dates);
-                        if(insert){
-                            Toast.makeText(MainActivity.this, "Registered successfully", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getApplicationContext(),HomeActivity.class);
-                            startActivity(intent);
-                        }
-                        else{
-                            Toast.makeText(MainActivity.this, "Registered failed", Toast.LENGTH_SHORT).show();
-                        }
+                    if (!isValidDate(dates)) {
+                        Toast.makeText(MainActivity.this, "Ngày sinh không hợp lệ", Toast.LENGTH_SHORT).show();
                     }
-                    else{
-                        Toast.makeText(MainActivity.this, "User already exists ! please try again", Toast.LENGTH_SHORT).show();
+                    else {
+                        Boolean checkuser = DB.checkusername(user);
+                        if (!checkuser) {
+                            Boolean insert = DB.insertData(user, pass, num, dates);
+                            if (insert) {
+                                Toast.makeText(MainActivity.this, "Đăng kí thành công", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                                startActivity(intent);
+                            } else {
+                                Toast.makeText(MainActivity.this, "Đăng kí thất bại", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(MainActivity.this, "Tên tài khoản đã tồn tại vui lòng thử lại", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }else{
-                    Toast.makeText(MainActivity.this, "Password not match", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Mật khẩu không giống nhau", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -127,8 +135,42 @@ public class MainActivity extends AppCompatActivity {
             }, year, month, dayOfMonth);
             datePickerDialog.show();
         });
+    }
 
-
+    //kiểm tra xem ngày sinh hợp lệ hay không
+    private boolean isValidDate(String input) {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        format.setLenient(false);
+        try {
+            Date date = format.parse(input);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+            int month = calendar.get(Calendar.MONTH) + 1;
+            int year = calendar.get(Calendar.YEAR);
+            if (year < 0) {
+                return false;
+            }
+            if (month < 1 || month > 12) {
+                return false;
+            }
+            if (day < 1 || day > 31) {
+                return false;
+            }
+            if (month == 4 || month == 6 || month == 9 || month == 11) {
+                return (day <= 30);
+            }
+            if (month == 2) {
+                if (year % 4 == 0) {
+                    return (day <= 29);
+                } else {
+                    return (day <= 28);
+                }
+            }
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
     }
 
 }

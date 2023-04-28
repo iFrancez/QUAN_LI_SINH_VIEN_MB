@@ -47,7 +47,6 @@ public class ActivitySubject extends AppCompatActivity {
         searchButtonSubject = findViewById(R.id.buttonEnterSearchSubject);
         buttonRefresh = findViewById(R.id.buttonRefreshSubject);
 
-
         toolbar = findViewById(R.id.toolbarSubject);
         listViewSubject = findViewById(R.id.listviewSubject);
 
@@ -90,8 +89,6 @@ public class ActivitySubject extends AppCompatActivity {
         buttonRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
 
                 // Tải lại dữ liệu ban đầu
                 ArrayListSubject.clear();

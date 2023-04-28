@@ -11,14 +11,18 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.quan_li_sinh_vien.adapter.adapterstudent;
+import com.example.quan_li_sinh_vien.adapter.adaptersubject;
 import com.example.quan_li_sinh_vien.database.database;
 import com.example.quan_li_sinh_vien.model.Student;
+import com.example.quan_li_sinh_vien.model.Subject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,10 +32,13 @@ import java.util.Date;
 
 public class ActivityStudent extends AppCompatActivity {
 
+    EditText searchEditTextStudent;
+    Button searchButtonStudent,buttonRefreshStudent;
     Toolbar toolbar;
     ListView listViewStudent;
 
     ArrayList<Student> ArrayListStudent;
+    ArrayList<Student> searchResultsStudent;
     com.example.quan_li_sinh_vien.database.database database;
     com.example.quan_li_sinh_vien.adapter.adapterstudent adapterstudent;
 
@@ -41,6 +48,10 @@ public class ActivityStudent extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
+
+        searchEditTextStudent = findViewById(R.id.editTextSearchStudent);
+        searchButtonStudent = findViewById(R.id.buttonEnterSearchStudent);
+        buttonRefreshStudent = findViewById(R.id.buttonRefreshStudent);
 
         toolbar = findViewById(R.id.toolbarStudent);
         listViewStudent = findViewById(R.id.listviewStudent);
@@ -55,6 +66,8 @@ public class ActivityStudent extends AppCompatActivity {
         database = new database(this);
 
         ArrayListStudent = new ArrayList<>();
+        searchResultsStudent = new ArrayList<>();
+
         ArrayListStudent.clear();
 
         Cursor cursor = database.getDataStudent(id_subject);
@@ -74,6 +87,62 @@ public class ActivityStudent extends AppCompatActivity {
         listViewStudent.setAdapter(adapterstudent);
         cursor.moveToFirst();
         cursor.close();
+
+        //tìm kiếm môn học
+        searchButtonStudent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String searchQuery = searchEditTextStudent.getText().toString();
+                searchStudent(searchQuery);
+            }
+        });
+
+        //Cập nhật lại môn học
+        buttonRefreshStudent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // Tải lại dữ liệu ban đầu
+                ArrayListStudent.clear();
+                Cursor cursor = database.getDataStudent(id_subject);
+                while (cursor.moveToNext()) {
+                    int id_sub=cursor.getInt(5);
+                    int id = cursor.getInt(0);
+                    String name = cursor.getString(1);
+                    String sex = cursor.getString(2);
+                    String code = cursor.getString(3);
+                    String birthday = cursor.getString(4);
+
+                    ArrayListStudent.add(new Student(id,name,sex,code,birthday,id_sub));
+                }
+                cursor.close();
+                // Cập nhật lại adapter cho ListView
+                adapterstudent = new adapterstudent(ActivityStudent.this, ArrayListStudent);
+                listViewStudent.setAdapter(adapterstudent);
+            }
+        });
+
+    }
+
+    //hàm tìm kiếm sinh viên
+    private void searchStudent(String searchQuery) {
+        searchResultsStudent.clear();
+        for (Student student : ArrayListStudent) {
+            if (student.getStudent_code().toLowerCase().contains(searchQuery.toLowerCase())) {
+                searchResultsStudent.add(student);
+            }
+        }
+        if (searchResultsStudent.size() > 0) {
+            adapterstudent = new adapterstudent(ActivityStudent.this, searchResultsStudent);
+            listViewStudent.setAdapter(adapterstudent);
+            adapterstudent.notifyDataSetChanged();
+        } else {
+            Toast.makeText(this, "Không tìm thấy sinh viên", Toast.LENGTH_SHORT).show();
+            adapterstudent.clear();
+            listViewStudent.setAdapter(adapterstudent);
+        }
+        //resetEditTextSubject
+        searchEditTextStudent.setText("");
     }
 
     //Thêm icon add
