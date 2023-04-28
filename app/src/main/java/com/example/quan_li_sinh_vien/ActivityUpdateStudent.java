@@ -118,12 +118,15 @@ public class ActivityUpdateStudent extends AppCompatActivity {
                 } else {
                     Student student = createStudent();
                     // Thực hiện cập nhật thông tin học sinh
-                    database.UpdateStudent(student, id);
-                    // Hiển thị thông báo cập nhật thành công và chuyển đến màn hình danh sách học sinh
-                    Intent intent = new Intent(ActivityUpdateStudent.this, ActivityStudent.class);
-                    intent.putExtra("id_subject", id_subject);
-                    startActivity(intent);
-                    Toast.makeText(ActivityUpdateStudent.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                    if (database.UpdateStudent(student, id) == true) {
+                        // Hiển thị thông báo cập nhật thành công và chuyển đến màn hình danh sách học sinh
+                        Intent intent = new Intent(ActivityUpdateStudent.this, ActivityStudent.class);
+                        intent.putExtra("id_subject", id_subject);
+                        startActivity(intent);
+                        Toast.makeText(ActivityUpdateStudent.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(ActivityUpdateStudent.this, "Học sinh đã tồn tại ! Vui lòng thử lại", Toast.LENGTH_SHORT).show();
+                    }
 
                 }
             }

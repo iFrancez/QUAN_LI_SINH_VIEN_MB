@@ -8,7 +8,7 @@
     tools:context=".ActivitySubject">
 
     <androidx.appcompat.widget.Toolbar
-        app:title="Subject"
+        app:title="Môn học"
         android:id="@+id/toolbarSubject"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">

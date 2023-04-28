@@ -149,15 +149,24 @@ public class database extends SQLiteOpenHelper {
     public boolean UpdateSubject(Subject subject, int id) {
         SQLiteDatabase db = this.getWritableDatabase();
 
-        ContentValues values = new ContentValues();
-        values.put(SUBJECT_TITLE, subject.getSubject_title());
-        values.put(CREDITS, subject.getNumber_of_credit());
-        values.put(TIME, subject.getTime());
-        values.put(PLACE, subject.getPlace());
+        // Kiểm tra môn học đã tồn tại trong database hay chưa
+        String subjectName = subject.getSubject_title();
+        boolean isSubjectExists = checkSubject(subjectName);
 
-        db.update(TABLE_SUBJECTS, values, ID_SUBJECTS + "=" + id, null);
-        return true;
+        if (!isSubjectExists) {
+            ContentValues values = new ContentValues();
+            values.put(SUBJECT_TITLE, subjectName);
+            values.put(CREDITS, subject.getNumber_of_credit());
+            values.put(TIME, subject.getTime());
+            values.put(PLACE, subject.getPlace());
+            db.update(TABLE_SUBJECTS, values, ID_SUBJECTS + "=" + id, null);
+            return true;
+        } else {
+            return false;
+        }
     }
+
+
 
     //kiểm tra xem có tên sinh viên đó hay chưa
     public Boolean checkStudent(String codeStudent){
@@ -231,13 +240,23 @@ public class database extends SQLiteOpenHelper {
     //cập nhật sv
     public boolean UpdateStudent(Student student,int id){
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put(STUDENT_NAME,student.getStudent_name());
-        values.put(STUDENT_CODE,student.getStudent_code());
-        values.put(SEX,student.getSex());
-        values.put(DATE_OF_BIRTH,student.getDate_of_birth());
 
-        db.update(TABLE_STUDENT,values,ID_STUDENT+" = "+id,null);
-        return true;
+        // Kiểm tra sv đã tồn tại trong database hay chưa
+        String studentName = student.getStudent_code();
+        boolean isStudentExists = checkStudent(studentName);
+
+        if(!isStudentExists) {
+            ContentValues values = new ContentValues();
+            values.put(STUDENT_NAME, student.getStudent_name());
+            values.put(STUDENT_CODE, student.getStudent_code());
+            values.put(SEX, student.getSex());
+            values.put(DATE_OF_BIRTH, student.getDate_of_birth());
+            db.update(TABLE_STUDENT, values, ID_STUDENT + " = " + id, null);
+            return true;
+        }
+        else{
+            return false;
+        }
     }
+
 }

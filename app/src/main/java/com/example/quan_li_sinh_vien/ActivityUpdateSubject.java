@@ -79,12 +79,18 @@ public class ActivityUpdateSubject extends AppCompatActivity {
                 else {
                     Subject subject = updatesubject();
 
-                    database.UpdateSubject(subject,id);
+                    if(database.UpdateSubject(subject,id)==true){
+                        //update thành công thì qua activity subject
+                        Intent intent = new Intent(ActivityUpdateSubject.this,ActivitySubject.class);
+                        startActivity(intent);
+                        Toast.makeText(ActivityUpdateSubject.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(ActivityUpdateSubject.this, "Môn học đã tồn tại ! Vui lòng thử lại", Toast.LENGTH_SHORT).show();
 
-                    //update thành công thì qua activity subject
-                    Intent intent = new Intent(ActivityUpdateSubject.this,ActivitySubject.class);
-                    startActivity(intent);
-                    Toast.makeText(ActivityUpdateSubject.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                    }
+
+
                 }
 
             }
