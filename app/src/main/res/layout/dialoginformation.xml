@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="340dp"
-    android:layout_height="300dp"
+    android:layout_height="450dp"
     android:background="#5B91BC"
     android:orientation="vertical"
     tools:ignore="TextSizeCheck">
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginTop="10dp"
-        android:text="Tác giả"
+        android:text="Thành viên nhóm"
         android:textColor="#FFFFFF"
         android:textSize="25sp"
         android:textStyle="bold" />
@@ -22,7 +22,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
 
-        android:text="MSSV: 47.01.104.154 \n    Phan Nguyễn Thanh Pháp \n Trần Thiện Trí \n Lê Văn Hoà \n Nguyễn Trung Thành \n Đặng Quốc Hưng \n Nguyễn Nguyên Khang"
+        android:text=
+        " MSSV: 47.01.104.154\n    Phan Nguyễn Thanh Pháp
+        \n MSSV: 47.01.104.217\n   Trần Thiện Trí
+        \n MSSV: 47.01.104.088\n    Lê Văn Hoà
+        \n MSSV: 47.01.104.195\n    Nguyễn Trung Thành
+        \n MSSV: 47.01.104.094\n    Đặng Quốc Hưng
+        \n MSSV: 47.01.104.109\n    Trần Nguyên Khang"
         android:textColor="#FFFFFF"
         android:textSize="25sp"
         android:textStyle="bold" />
