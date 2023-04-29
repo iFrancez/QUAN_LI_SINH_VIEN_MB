@@ -6,7 +6,15 @@ public class Student {
     private String sex;
     private String student_code;
     private String date_of_birth;
-    private int id_subject;
+    private int id_class;
+
+    public int getId_class() {
+        return id_class;
+    }
+
+    public void setId_class(int id_class) {
+        this.id_class = id_class;
+    }
 
     public Student(String student_name, String sex, String student_code, String date_of_birth) {
         this.student_name = student_name;
@@ -15,21 +23,21 @@ public class Student {
         this.date_of_birth = date_of_birth;
     }
 
-    public Student(String student_name, String sex, String student_code, String date_of_birth, int id_subject) {
+    public Student(String student_name, String sex, String student_code, String date_of_birth, int id_class) {
         this.student_name = student_name;
         this.sex = sex;
         this.student_code = student_code;
         this.date_of_birth = date_of_birth;
-        this.id_subject = id_subject;
+        this.id_class = id_class;
     }
 
-    public Student(int id_student, String student_name, String sex, String student_code, String date_of_birth, int id_subject) {
+    public Student(int id_student, String student_name, String sex, String student_code, String date_of_birth, int id_class) {
         this.id_student = id_student;
         this.student_name = student_name;
         this.sex = sex;
         this.student_code = student_code;
         this.date_of_birth = date_of_birth;
-        this.id_subject = id_subject;
+        this.id_class = id_class;
     }
 
     public int getId_student() {
@@ -72,11 +80,6 @@ public class Student {
         this.date_of_birth = date_of_birth;
     }
 
-    public int getId_subject() {
-        return id_subject;
-    }
 
-    public void setId_subject(int id_subject) {
-        this.id_subject = id_subject;
-    }
+
 }

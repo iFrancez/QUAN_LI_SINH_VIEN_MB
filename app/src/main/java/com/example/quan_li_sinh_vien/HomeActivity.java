@@ -27,7 +27,7 @@ public class HomeActivity extends AppCompatActivity {
         //click subject
         btnSubject.setOnClickListener(view -> {
             //chuyển qua activity subject
-            Intent intent = new Intent(HomeActivity.this,ActivitySubject.class);
+            Intent intent = new Intent(HomeActivity.this,ActivityMajor.class);
             startActivity(intent);
         });
 

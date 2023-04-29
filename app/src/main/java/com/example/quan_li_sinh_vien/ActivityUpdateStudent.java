@@ -16,7 +16,10 @@ import android.widget.Toast;
 import com.example.quan_li_sinh_vien.database.database;
 import com.example.quan_li_sinh_vien.model.Student;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class ActivityUpdateStudent extends AppCompatActivity {
 
@@ -43,7 +46,7 @@ public class ActivityUpdateStudent extends AppCompatActivity {
         String sex = intent.getStringExtra("sex");
         String code = intent.getStringExtra("code");
         String birth = intent.getStringExtra("birth");
-        int id_subject = intent.getIntExtra("id_subject", 0);
+        int id_class = intent.getIntExtra("id_class", 0);
 
         //Gán giá trị
         editTextUpdateName.setText(name);
@@ -63,7 +66,7 @@ public class ActivityUpdateStudent extends AppCompatActivity {
         btnUpdateStudent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogUpdate(id, id_subject);
+                DialogUpdate(id, id_class);
             }
         });
 
@@ -84,7 +87,7 @@ public class ActivityUpdateStudent extends AppCompatActivity {
         });
     }
 
-    private void DialogUpdate(int id, int id_subject) {
+    private void DialogUpdate(int id, int id_class) {
         Dialog dialog = new Dialog(this);
 
         dialog.setContentView(R.layout.dialogupdatestudent);
@@ -121,9 +124,12 @@ public class ActivityUpdateStudent extends AppCompatActivity {
                     if(database.UpdateStudent(student, id)){
                         // Hiển thị thông báo cập nhật thành công và chuyển đến màn hình danh sách học sinh
                         Intent intent = new Intent(ActivityUpdateStudent.this, ActivityStudent.class);
-                        intent.putExtra("id_subject", id_subject);
+                        intent.putExtra("id_class", id_class);
                         startActivity(intent);
                         Toast.makeText(ActivityUpdateStudent.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (!isValidDate(birth)) {
+                        Toast.makeText(ActivityUpdateStudent.this, "Ngày sinh không hợp lệ", Toast.LENGTH_SHORT).show();
                     }
                     else{
                         Toast.makeText(ActivityUpdateStudent.this, "Ngày sinh không hợp lệ", Toast.LENGTH_SHORT).show();
@@ -159,5 +165,40 @@ public class ActivityUpdateStudent extends AppCompatActivity {
         return student;
     }
 
+    //kiểm tra xem ngày sinh hợp lệ hay không
+    private boolean isValidDate(String input) {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        format.setLenient(false);
+        try {
+            Date date = format.parse(input);
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(date);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+            int month = calendar.get(Calendar.MONTH) + 1;
+            int year = calendar.get(Calendar.YEAR);
+            if (year < 0) {
+                return false;
+            }
+            if (month < 1 || month > 12) {
+                return false;
+            }
+            if (day < 1 || day > 31) {
+                return false;
+            }
+            if (month == 4 || month == 6 || month == 9 || month == 11) {
+                return (day <= 30);
+            }
+            if (month == 2) {
+                if (year % 4 == 0) {
+                    return (day <= 29);
+                } else {
+                    return (day <= 28);
+                }
+            }
+            return true;
+        } catch (ParseException e) {
+            return false;
+        }
+    }
 
 }

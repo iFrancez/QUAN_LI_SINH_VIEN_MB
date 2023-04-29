@@ -42,7 +42,7 @@ public class ActivityStudent extends AppCompatActivity {
     com.example.quan_li_sinh_vien.database.database database;
     com.example.quan_li_sinh_vien.adapter.adapterstudent adapterstudent;
 
-    int id_subject = 0;
+    int id_class = 0;
     int count = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +57,7 @@ public class ActivityStudent extends AppCompatActivity {
         listViewStudent = findViewById(R.id.listviewStudent);
 
         Intent intent = getIntent();
-        id_subject = intent.getIntExtra("id_subject",0);
+        id_class = intent.getIntExtra("id_class",0);
 
         //toolbar
         setSupportActionBar(toolbar);
@@ -70,14 +70,15 @@ public class ActivityStudent extends AppCompatActivity {
 
         ArrayListStudent.clear();
 
-        Cursor cursor = database.getDataStudent(id_subject);
+        Cursor cursor = database.getDataStudent(id_class);
         while (cursor.moveToNext()){
-            int id_sub=cursor.getInt(5);
             int id = cursor.getInt(0);
             String name = cursor.getString(1);
             String sex = cursor.getString(2);
             String code = cursor.getString(3);
             String birthday = cursor.getString(4);
+            int id_sub=cursor.getInt(5);
+
 
             ArrayListStudent.add(new Student(id,name,sex,code,birthday,id_sub));
 
@@ -104,14 +105,15 @@ public class ActivityStudent extends AppCompatActivity {
 
                 // Tải lại dữ liệu ban đầu
                 ArrayListStudent.clear();
-                Cursor cursor = database.getDataStudent(id_subject);
+                Cursor cursor = database.getDataStudent(id_class);
                 while (cursor.moveToNext()) {
-                    int id_sub=cursor.getInt(5);
                     int id = cursor.getInt(0);
                     String name = cursor.getString(1);
                     String sex = cursor.getString(2);
                     String code = cursor.getString(3);
                     String birthday = cursor.getString(4);
+                    int id_sub=cursor.getInt(5);
+
 
                     ArrayListStudent.add(new Student(id,name,sex,code,birthday,id_sub));
                 }
@@ -158,13 +160,13 @@ public class ActivityStudent extends AppCompatActivity {
             //Chuyển qua màn hình add student
             case R.id.menuaddstudent:
                 Intent intent = new Intent(ActivityStudent.this,ActivityAddStudent.class);
-                intent.putExtra("id_subject",id_subject);
+                intent.putExtra("id_class",id_class);
                 startActivity(intent);
                 break;
 
                 //nút back chuyển qua subject activity
             default:
-                Intent intent1 = new Intent(ActivityStudent.this,ActivitySubject.class);
+                Intent intent1 = new Intent(ActivityStudent.this,ActivityClass.class);
                 startActivity(intent1);
                 break;
         }
@@ -177,14 +179,14 @@ public class ActivityStudent extends AppCompatActivity {
     public void onBackPressed() {
         count++;
         if(count>=1){
-            Intent intent = new Intent(this,ActivitySubject.class);
+            Intent intent = new Intent(ActivityStudent.this,ActivityClass.class);
             startActivity(intent);
             finish();
         }
     }
 
     public void information(final int pos){
-        Cursor cursor = database.getDataStudent(id_subject);
+        Cursor cursor = database.getDataStudent(id_class);
         while (cursor.moveToNext()){
             int id = cursor.getInt(0);
 
@@ -196,7 +198,7 @@ public class ActivityStudent extends AppCompatActivity {
                 String sex = cursor.getString(2);
                 String code = cursor.getString(3);
                 String birth = cursor.getString(4);
-                int id_subject = cursor.getInt(5);
+                int id_class = cursor.getInt(5);
 
                 intent.putExtra("name",name);
                 intent.putExtra("sex",sex);
@@ -210,7 +212,7 @@ public class ActivityStudent extends AppCompatActivity {
 
     //update
     public void update(final int id_student){
-        Cursor cursor=database.getDataStudent(id_subject);
+        Cursor cursor=database.getDataStudent(id_class);
 
         while(cursor.moveToNext()){
             int id = cursor.getInt(0);
@@ -223,13 +225,13 @@ public class ActivityStudent extends AppCompatActivity {
                 String sex = cursor.getString(2);
                 String code = cursor.getString(3);
                 String birth = cursor.getString(4);
-                int id_subject = cursor.getInt(5);
+                int id_class = cursor.getInt(5);
 
                 intent.putExtra("name",name);
                 intent.putExtra("sex",sex);
                 intent.putExtra("code",code);
                 intent.putExtra("birth",birth);
-                intent.putExtra("id_subject",id_subject);
+                intent.putExtra("id_class",id_class);
                 startActivity(intent);
             }
         }
@@ -252,7 +254,7 @@ public class ActivityStudent extends AppCompatActivity {
 
                 //mở lại activity student
                 Intent intent = new Intent(ActivityStudent.this,ActivityStudent.class);
-                intent.putExtra("id_subject",id_subject);
+                intent.putExtra("id_class",id_class);
                 startActivity(intent);
                 Toast.makeText(ActivityStudent.this, "Xoá sinh viên thành công", Toast.LENGTH_SHORT).show();
             }

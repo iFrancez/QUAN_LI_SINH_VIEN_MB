@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ActivityAddClass">
+    <TextView
+        android:layout_marginTop="10dp"
+        android:textColor="#F44336"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:text="Thêm lớp học"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></TextView>
+
+    <EditText
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center"
+        android:id="@+id/EditTextClassName"
+        android:hint="Tên lớp"
+        android:layout_width="300dp"
+        android:layout_height="60dp"></EditText>
+    <EditText
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center"
+        android:id="@+id/EditTextClassCode"
+        android:hint="Mã lớp"
+        android:layout_width="300dp"
+        android:layout_height="60dp"></EditText>
+    <EditText
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center"
+        android:id="@+id/EditTextTeacherName"
+        android:hint="Họ tên giảng viên"
+        android:layout_width="300dp"
+        android:layout_height="60dp"></EditText>
+
+
+    <TextView
+        android:layout_marginTop="5dp"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:text="Giới tính: "
+        android:layout_gravity="center"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"></TextView>
+    <RadioGroup
+        android:layout_gravity="center"
+        android:paddingTop="5dp"
+        android:orientation="horizontal"
+        android:layout_width="300dp"
+        android:layout_height="70dp">
+
+        <RadioButton
+            android:id="@+id/radiobuttonMaleTeacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:minHeight="48dp"
+            android:text="Nam"
+            android:textColor="#000000"></RadioButton>
+
+        <RadioButton
+            android:id="@+id/radiobuttonFemaleTeacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:minHeight="48dp"
+            android:text="Nữ"
+            android:textColor="#000000"></RadioButton>
+    </RadioGroup>
+
+    <EditText
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center"
+        android:id="@+id/EditTextTeacherCode"
+        android:hint="Mã giảng viên"
+        android:layout_width="300dp"
+        android:layout_height="60dp"></EditText>
+
+    <EditText
+        android:inputType="datetime"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center"
+        android:id="@+id/EditTextTeacherBirth"
+        android:hint="Ngày sinh"
+        android:layout_width="300dp"
+        android:layout_height="60dp"></EditText>
+    <Button
+
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center"
+        android:text="Thêm"
+        android:id="@+id/buttonAddClass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"></Button>
+</LinearLayout>

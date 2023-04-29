@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.example.quan_li_sinh_vien.model.ClassSub;
+import com.example.quan_li_sinh_vien.model.Majors;
 import com.example.quan_li_sinh_vien.model.Student;
 import com.example.quan_li_sinh_vien.model.Subject;
 
@@ -23,12 +25,15 @@ public class database extends SQLiteOpenHelper {
 
     //Tên database
     private static String DATABASE_NAME = "studentmanagement.db";
+
     //Bản Khoa
-    private static String TABLE_MAJORS = "majors";
+    private static String TABLE_MAJORS = "major";
     private static String ID_MAJORS = "idmajors";
     private static String MAJORS_TITLE = "majorstitle";
 
     private static String MAJORS_CODE = "majorcode";
+
+    private static String MAJORS_SCHOOL = "majorschool";
 
     private static int VERSION = 1;
 
@@ -42,12 +47,19 @@ public class database extends SQLiteOpenHelper {
     private static String PLACE = "place";
 //    private static int VERSION = 1;
 
-    //Bảng lớp
+    //Bảng lớp và giảng viên
     private static String TABLE_CLASS = "class";
     private static String ID_CLASS = "idclass";
     private static String CLASS_TITLE = "classtitle";
+    private static String CLASS_CODE = "classcode"; //mã lớp không được thay đổi
 
-    private static String CLASS_CODE = "classcode";
+    private static String TEACHER_NAME = "teachername";
+
+    private static String TEACHER_SEX = "teachersex";
+
+    private static String TEACHER_CODE = "teachercode";
+
+    private static String TEACHER_BIRTH = "teacherbirth";
 
 
     //Bảng sinh viên
@@ -58,33 +70,38 @@ public class database extends SQLiteOpenHelper {
     private static String STUDENT_CODE = "studentcode";
     private static String DATE_OF_BIRTH = "dateofbirth";
 
-    private static String STUDY_PROCESS = "studyofprocess";
+//    private static String STUDY_PROCESS = "studyofprocess";
+//
+//    private static String MID_TERM = "mid";
+//
+//    private static String END_TERM = "endterm";
 
-    private static String MID_TERM = "mid";
 
-    private static String END_TERM = "endterm";
-
+    // NHỚ CÁCH MẤY CÁI KIỂU DỮ LIỆU RA KO LÀ LỖI Á VD: " TEXT "
 
     //Tạo bảng khoa
     private String SQLQuery = "CREATE TABLE " + TABLE_MAJORS + " ( " + ID_MAJORS + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + MAJORS_CODE + "TEXT, "
-            + MAJORS_TITLE + " TEXT)";
+            + MAJORS_TITLE + " TEXT, "
+            + MAJORS_CODE + " TEXT, "
+            + MAJORS_SCHOOL + " TEXT )";
 
     //Tạo bảng môn học
     private String SQLQuery2 = "CREATE TABLE " + TABLE_SUBJECTS + " ( " + ID_SUBJECTS + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + SUBJECT_TITLE + " TEXT, "
             + CREDITS + " INTEGER, "
             + TIME + " TEXT, "
-            + PLACE + " TEXT )";
-
-//            + PLACE + " TEXT, "
-//            + ID_MAJORS + " INTEGER , FOREIGN KEY ( " + ID_MAJORS + " ) REFERENCES " +
-//            TABLE_MAJORS + "(" + ID_MAJORS + "))";
+            + PLACE + " TEXT, "
+            + ID_MAJORS + " INTEGER , FOREIGN KEY ( " + ID_MAJORS + " ) REFERENCES " +
+            TABLE_MAJORS + "(" + ID_MAJORS + "))";
 
     //Tạo bảng lớp
     private String SQLQuery3 = "CREATE TABLE " + TABLE_CLASS + " ( " + ID_CLASS + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-            + CLASS_CODE + "TEXT, "
             + CLASS_TITLE + " TEXT, "
+            + CLASS_CODE + " TEXT, "
+            + TEACHER_NAME + " TEXT, "
+            + TEACHER_SEX + " TEXT, "
+            + TEACHER_CODE + " TEXT, "
+            + TEACHER_BIRTH + " TEXT, "
             + ID_SUBJECTS + " INTEGER , FOREIGN KEY ( " + ID_SUBJECTS + " ) REFERENCES " +
             TABLE_SUBJECTS + "(" + ID_SUBJECTS + "))";
 
@@ -94,14 +111,14 @@ public class database extends SQLiteOpenHelper {
             + SEX + " TEXT, "
             + STUDENT_CODE + " TEXT, "
             + DATE_OF_BIRTH + " TEXT, "
-            + ID_SUBJECTS + " INTEGER , FOREIGN KEY ( " + ID_SUBJECTS + " ) REFERENCES " +
-            TABLE_SUBJECTS + "(" + ID_SUBJECTS + "))";
+//            + ID_SUBJECTS + " INTEGER , FOREIGN KEY ( " + ID_SUBJECTS + " ) REFERENCES " +
+//            TABLE_SUBJECTS + "(" + ID_SUBJECTS + "))";
 
 //            + STUDY_PROCESS + "REAL,"
 //            + MID_TERM + "REAL,"
 //            + END_TERM +"REAL,"
-//            + ID_CLASS + " INTEGER , FOREIGN KEY ( " + ID_CLASS + " ) REFERENCES " +
-//            TABLE_CLASS + "(" + ID_CLASS + "))";
+            + ID_CLASS + " INTEGER , FOREIGN KEY ( " + ID_CLASS + " ) REFERENCES " +
+            TABLE_CLASS + "(" + ID_CLASS + "))";
 
 
     public database(@Nullable Context context) {
@@ -110,9 +127,9 @@ public class database extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-//        sqLiteDatabase.execSQL(SQLQuery);
+        sqLiteDatabase.execSQL(SQLQuery);
         sqLiteDatabase.execSQL(SQLQuery2);
-//        sqLiteDatabase.execSQL(SQLQuery3);
+        sqLiteDatabase.execSQL(SQLQuery3);
         sqLiteDatabase.execSQL(SQLQuery4);
     }
 
@@ -120,6 +137,124 @@ public class database extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
     }
+
+    //insert major
+    public void AddMajor(Majors major) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(MAJORS_TITLE, major.getMajors_title());
+        values.put(MAJORS_CODE, major.getMajors_code());
+        values.put(MAJORS_SCHOOL, major.getMajors_school());
+
+        db.insert(TABLE_MAJORS, null, values);
+        db.close();
+    }
+
+    //update major
+    public boolean UpdateMajor(Majors major, int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(MAJORS_TITLE, major.getMajors_title());
+        values.put(MAJORS_CODE, major.getMajors_code());
+        values.put(MAJORS_SCHOOL, major.getMajors_school());
+
+        db.update(TABLE_MAJORS, values, ID_MAJORS + "=" + id, null);
+        return true;
+    }
+
+    //lấy giữ liệu major
+    public Cursor getDataMajor() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_MAJORS, null);
+        return cursor;
+
+
+    }
+
+    //kiểm tra xem có mã ngành học đó hay chưa
+    public Boolean checkMajor(String majorcode) {
+        //projection: là một mảng các cột cần lấy ra từ bảng.
+        //selection: là chuỗi điều kiện để chọn các bản ghi phù hợp.
+        //selectionArgs: là một mảng các giá trị được truyền vào trong chuỗi điều kiện.
+        //query(): là phương thức để thực hiện câu truy vấn trên bảng, và trả về một đối tượng Cursor chứa các bản ghi phù hợp.
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] projection = {MAJORS_CODE};
+        String selection = MAJORS_CODE.toLowerCase() + "=?";
+        String[] selectionArgs = {majorcode.toLowerCase()};
+        Cursor cursor = db.query(TABLE_MAJORS, projection, selection, selectionArgs, null, null, null);
+        if (cursor.getCount() > 0) return true;
+        else return false;
+    }
+
+
+    //xoá Major
+    public int DeleteMajor(int i) {
+        //Chú ý:
+        //getWritableDatabase(): là cả đọc và ghi
+        //getReadableDatabase(): chỉ đọc
+        SQLiteDatabase db = this.getWritableDatabase();
+        int res = db.delete(TABLE_MAJORS, ID_MAJORS + "=" + i, null);
+        return res;
+    }
+
+
+    //thêm lớp học
+    public void AddClass(ClassSub classSub) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put(CLASS_TITLE, classSub.getClass_name());
+        values.put(CLASS_CODE, classSub.getClass_code());
+        values.put(TEACHER_NAME, classSub.getTeacher_name());
+        values.put(TEACHER_SEX, classSub.getTeacher_sex());
+        values.put(TEACHER_CODE, classSub.getTeacher_code());
+        values.put(TEACHER_BIRTH, classSub.getTeacher_birth());
+        values.put(ID_SUBJECTS, classSub.getId_subject());
+
+        db.insert(TABLE_CLASS, null, values);
+        db.close();
+    }
+
+    //lấy giữ liệu class
+    public Cursor getDataClass(int id_subject) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_CLASS + " WHERE " + ID_SUBJECTS + " = " + id_subject, null);
+        return cursor;
+    }
+
+    //xoá lớp học
+    public int DeleteClass(int i) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        int res = db.delete(TABLE_CLASS, ID_CLASS + "=" + i, null);
+        return res;
+    }
+
+    //update lớp
+    public boolean UpdateClass(ClassSub classSub,int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(CLASS_TITLE,classSub.getClass_name());
+        values.put(CLASS_CODE,classSub.getClass_code());
+        values.put(TEACHER_NAME,classSub.getTeacher_name());
+        values.put(TEACHER_SEX,classSub.getTeacher_sex());
+        values.put(TEACHER_CODE,classSub.getTeacher_code());
+        values.put(TEACHER_BIRTH,classSub.getTeacher_birth());
+        db.update(TABLE_CLASS, values, ID_CLASS + "=" + id, null);
+        return true;
+    }
+    //kiểm tra xem có mã giảng viên và mã lớp đó hay chưa
+    public Boolean checkClass(String classCode, String teacherCode) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] projection = {CLASS_CODE, TEACHER_CODE};
+        String selection ="(" + CLASS_CODE + "=? OR " + TEACHER_CODE + "=?" + ") OR ("+ CLASS_CODE + "=? AND " + TEACHER_CODE + "=?" + ")";
+        String[] selectionArgs = {classCode, teacherCode};
+        Cursor cursor = db.query(TABLE_CLASS, projection, selection, selectionArgs, null, null, null);
+        if (cursor.getCount() > 0) return true;
+        else return false;
+    }
+
 
     //insert subject
     public void AddSubject(Subject subject) {
@@ -130,7 +265,7 @@ public class database extends SQLiteOpenHelper {
         values.put(CREDITS, subject.getNumber_of_credit());
         values.put(TIME, subject.getTime());
         values.put(PLACE, subject.getPlace());
-
+        values.put(ID_MAJORS, subject.getId_major());
         db.insert(TABLE_SUBJECTS, null, values);
         db.close();
     }
@@ -180,14 +315,14 @@ public class database extends SQLiteOpenHelper {
     }
 
     //lấy giữ liệu subject
-    public Cursor getDataSubject() {
+    public Cursor getDataSubject(int id_major) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_SUBJECTS, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_SUBJECTS + " WHERE " + ID_MAJORS + " = " + id_major, null);
         return cursor;
     }
 
+    //xoá subject
     public int DeleteSubject(int i) {
-
         //Chú ý:
         //getWritableDatabase(): là cả đọc và ghi
         //getReadableDatabase(): chỉ đọc
@@ -199,7 +334,7 @@ public class database extends SQLiteOpenHelper {
     //dùng để xoá các student của subject
     public int DeleteSubjectStudent(int i) {
         SQLiteDatabase db = this.getWritableDatabase();
-        int res = db.delete(TABLE_STUDENT, ID_SUBJECTS + " = " + i, null);
+        int res = db.delete(TABLE_STUDENT, ID_STUDENT + " = " + i, null);
         return res;
     }
 
@@ -212,16 +347,17 @@ public class database extends SQLiteOpenHelper {
         values.put(SEX, student.getSex());
         values.put(STUDENT_CODE, student.getStudent_code());
         values.put(DATE_OF_BIRTH, student.getDate_of_birth());
-        values.put(ID_SUBJECTS, student.getId_subject());
+        values.put(ID_CLASS, student.getId_class());
 
         db.insert(TABLE_STUDENT, null, values);
         db.close();
     }
 
+
     //Lấy tất cả sinh viên thuộc môn học đó
     public Cursor getDataStudent(int id_subject) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_STUDENT + " WHERE " + ID_SUBJECTS + " = " + id_subject, null);
+        Cursor res = db.rawQuery("SELECT * FROM " + TABLE_STUDENT + " WHERE " + ID_CLASS + " = " + id_subject, null);
         return res;
     }
 

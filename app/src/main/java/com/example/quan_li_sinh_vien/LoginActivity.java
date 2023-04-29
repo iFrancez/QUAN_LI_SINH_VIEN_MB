@@ -24,10 +24,12 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         username = (EditText) findViewById(R.id.username1);
+        //mặc định dấu chấm pass
         password = (EditText) findViewById(R.id.password1);
+        password.setTransformationMethod(new PasswordTransformationMethod());
         signin = (Button) findViewById(R.id.btnsignin);
 
-        password.setTransformationMethod(new PasswordTransformationMethod());
+
 
         btnsignin = (Button) findViewById(R.id.btnsignin1);
         DB = new DBHelper(this);

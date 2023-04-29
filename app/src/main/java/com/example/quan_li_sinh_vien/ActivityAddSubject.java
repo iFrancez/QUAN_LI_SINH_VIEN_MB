@@ -20,6 +20,7 @@ public class ActivityAddSubject extends AppCompatActivity {
     Button buttonAddSubject;
     EditText editSubjectTitle,editSubjectCredit,editSubjectTime,editSubjectPlace;
     com.example.quan_li_sinh_vien.database.database database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,17 +33,21 @@ public class ActivityAddSubject extends AppCompatActivity {
         editSubjectPlace = findViewById(R.id.EditTextSubjectPlace);
         editSubjectTitle = findViewById(R.id.EditTextSubjectTitle);
 
+        //lấy id major
+        Intent intent = getIntent();
+        int id_major = intent.getIntExtra("id_major",0);
+
         database = new database(this);
 
         buttonAddSubject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogAdd();
+                DialogAdd(id_major);
             }
         });
     }
 
-    private void DialogAdd() {
+    private void DialogAdd(int id_major) {
 
         //Tạo đối tượng cửa sổ
         Dialog dialog = new Dialog(this);
@@ -72,13 +77,14 @@ public class ActivityAddSubject extends AppCompatActivity {
                     Boolean checkSub = database.checkSubject(subjectTitle);
                     if(!checkSub) {
                         //gán cho đối tượng subject giá trị được nhập vào
-                        Subject subject = CreatSubject();
+                        Subject subject = CreatSubject(id_major);
 
                         //add trong database
                         database.AddSubject(subject);
 
                         //add thành công thì chuyển qua giao diện subject
                         Intent intent = new Intent(ActivityAddSubject.this, ActivitySubject.class);
+                        intent.putExtra("id_major",id_major);
                         startActivity(intent);
 
                         Toast.makeText(ActivityAddSubject.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
@@ -101,13 +107,13 @@ public class ActivityAddSubject extends AppCompatActivity {
     }
 
     //Tạo môn học
-    private Subject CreatSubject(){
+    private Subject CreatSubject(int id_major){
         String subjectTitle = editSubjectTitle.getText().toString().trim();
         int credit = Integer.parseInt(editSubjectCredit.getText().toString().trim());
         String place = editSubjectPlace.getText().toString().trim();
         String time = editSubjectTime.getText().toString().trim();
 
-        Subject subject = new Subject(subjectTitle,credit,time,place);
+        Subject subject = new Subject(subjectTitle,credit,time,place,id_major);
         return subject;
     }
 }

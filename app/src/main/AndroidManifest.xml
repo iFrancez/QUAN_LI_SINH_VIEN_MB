@@ -12,6 +12,32 @@
         android:theme="@style/Theme.QUAN_LI_SINH_VIEN"
         tools:targetApi="31">
         <activity
+            android:name=".ActivityUpdateClass"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityInformationClass"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityAddClass"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityClass"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".ActivityUpdateMajor"
+            android:exported="false" />
+        <activity
+            android:name=".ActitvityMajorInformation"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityAddMajor"
+            android:exported="false" />
+        <activity
+            android:name=".ActivityMajor"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
             android:name=".ActivityUpdateStudent"
             android:exported="false" />
         <activity

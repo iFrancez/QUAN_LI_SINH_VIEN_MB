@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ActivityUpdateClass">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="Cập nhật lớp học"
+        android:textColor="#F44336"
+        android:textStyle="bold"></TextView>
+
+    <EditText
+        android:id="@+id/EditTextUpdateClassName"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:hint="Cập nhật lớp"></EditText>
+
+    <EditText
+        android:id="@+id/EditTextUpdateClassCode"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:hint="Cập nhật mã lớp"
+        android:enabled="true"
+        android:focusable="false"></EditText>
+
+    <EditText
+        android:id="@+id/EditTextUpdateTeacherName"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:hint="Cập nhật họ tên giảng viên"></EditText>
+
+
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:text="Cập nhật giới tính: "
+        android:textColor="#000000"
+        android:textSize="18sp"></TextView>
+
+    <RadioGroup
+        android:layout_width="300dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:paddingTop="5dp">
+
+        <RadioButton
+            android:id="@+id/radiobuttonUpdateMaleTeacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:minHeight="48dp"
+            android:text="Nam"
+            android:textColor="#000000"></RadioButton>
+
+        <RadioButton
+            android:id="@+id/radiobuttonUpdateFemaleTeacher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:minHeight="48dp"
+            android:text="Nữ"
+            android:textColor="#000000"></RadioButton>
+    </RadioGroup>
+
+    <EditText
+        android:id="@+id/EditTextUpdateTeacherCode"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:hint="Cập nhật mã giảng viên"
+        android:enabled="true"
+        android:focusable="false"></EditText>
+
+    <EditText
+        android:id="@+id/EditTextUpdateTeacherBirth"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:hint="Cập nhật ngày sinh"
+        android:inputType="datetime"></EditText>
+
+    <Button
+
+        android:id="@+id/buttonUpdateClass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:text="Cập nhật"></Button>
+</LinearLayout>

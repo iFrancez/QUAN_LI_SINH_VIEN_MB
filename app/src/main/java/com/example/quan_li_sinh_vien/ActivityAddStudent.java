@@ -43,13 +43,13 @@ public class ActivityAddStudent extends AppCompatActivity {
 
         //lấy id subject
         Intent intent = getIntent();
-        int id_subject = intent.getIntExtra("id_subject", 0);
+        int id_class = intent.getIntExtra("id_class", 0);
 
         database = new database(this);
         buttonAddStudent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DialogAdd(id_subject);
+                DialogAdd(id_class);
             }
         });
 
@@ -71,7 +71,7 @@ public class ActivityAddStudent extends AppCompatActivity {
     }
 
     //dialog add
-    private void DialogAdd(int id_subject) {
+    private void DialogAdd(int id_class) {
 
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialogaddstudent);
@@ -102,12 +102,12 @@ public class ActivityAddStudent extends AppCompatActivity {
                 }else {
                     Boolean checkStudents = database.checkStudent(code);
                     if (!checkStudents) {
-                        Student student = CreateStudent(id_subject);
+                        Student student = CreateStudent(id_class);
 
                         database.AddStudent(student);
 
                         Intent intent = new Intent(ActivityAddStudent.this, ActivityStudent.class);
-                        intent.putExtra("id_subject", id_subject);
+                        intent.putExtra("id_class", id_class);
                         startActivity(intent);
 
                         Toast.makeText(ActivityAddStudent.this, "Thêm học sinh thành công", Toast.LENGTH_SHORT).show();
@@ -127,7 +127,7 @@ public class ActivityAddStudent extends AppCompatActivity {
         dialog.show();
     }
 
-    private Student CreateStudent(int id_subject) {
+    private Student CreateStudent(int id_class) {
         String name = editTextStudentName.getText().toString().trim();
         String code = editTextStudentCode.getText().toString().trim();
         String birthday = editTextStudentBirth.getText().toString().trim();
@@ -140,7 +140,7 @@ public class ActivityAddStudent extends AppCompatActivity {
             sex = "Nữ";
         }
 
-        Student student = new Student(name, sex, code, birthday, id_subject);
+        Student student = new Student(name, sex, code, birthday, id_class);
         return student;
     }
 
