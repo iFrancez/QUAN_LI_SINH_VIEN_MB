@@ -21,6 +21,7 @@ import com.example.quan_li_sinh_vien.adapter.adapterclass;
 import com.example.quan_li_sinh_vien.adapter.adaptersubject;
 import com.example.quan_li_sinh_vien.database.database;
 import com.example.quan_li_sinh_vien.model.ClassSub;
+import com.example.quan_li_sinh_vien.model.Majors;
 import com.example.quan_li_sinh_vien.model.Student;
 import com.example.quan_li_sinh_vien.model.Subject;
 
@@ -186,7 +187,8 @@ public class ActivityClass extends AppCompatActivity {
 
             //Nếu click vào nút còn lại là nút back thì quay lại subject
             default:
-                Intent intent = new Intent(ActivityClass.this, ActivitySubject.class);
+//                Intent intent = new Intent(ActivityClass.this, ActivitySubject.class);
+                Intent intent = new Intent(ActivityClass.this, ActivityMajor.class);
                 startActivity(intent);
                 finish();
                 break;
@@ -200,7 +202,9 @@ public class ActivityClass extends AppCompatActivity {
     public void onBackPressed() {
         count++;
         if(count>=1) {
-            Intent intent = new Intent(ActivityClass.this, ActivitySubject.class);
+//            Intent intent = new Intent(ActivityClass.this, ActivitySubject.class);
+            Intent intent = new Intent(ActivityClass.this, ActivityMajor.class);
+
             startActivity(intent);
             finish();
 

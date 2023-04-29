@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.quan_li_sinh_vien.adapter.adapterstudent;
 import com.example.quan_li_sinh_vien.adapter.adaptersubject;
 import com.example.quan_li_sinh_vien.database.database;
+import com.example.quan_li_sinh_vien.model.Majors;
 import com.example.quan_li_sinh_vien.model.Student;
 import com.example.quan_li_sinh_vien.model.Subject;
 
@@ -164,9 +165,10 @@ public class ActivityStudent extends AppCompatActivity {
                 startActivity(intent);
                 break;
 
-                //nút back chuyển qua subject activity
+                //nút back chuyển qua class activity
             default:
-                Intent intent1 = new Intent(ActivityStudent.this,ActivityClass.class);
+//                Intent intent1 = new Intent(ActivityStudent.this,ActivityClass.class);
+                Intent intent1 = new Intent(ActivityStudent.this, ActivityMajor.class);
                 startActivity(intent1);
                 break;
         }
@@ -179,7 +181,8 @@ public class ActivityStudent extends AppCompatActivity {
     public void onBackPressed() {
         count++;
         if(count>=1){
-            Intent intent = new Intent(ActivityStudent.this,ActivityClass.class);
+//            Intent intent = new Intent(ActivityStudent.this,ActivityClass.class);
+            Intent intent = new Intent(ActivityStudent.this, ActivityMajor.class);
             startActivity(intent);
             finish();
         }
