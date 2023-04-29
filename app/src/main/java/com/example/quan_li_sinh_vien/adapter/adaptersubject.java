@@ -70,7 +70,7 @@ public class adaptersubject extends BaseAdapter {
             @Override
             public void onClick(View view) {
                 //gọi tới phương thức delete
-                context.delete(id);
+                context.deleteSubject(id);
             }
         });
 

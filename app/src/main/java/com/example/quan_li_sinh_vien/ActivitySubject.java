@@ -203,28 +203,28 @@ public class ActivitySubject extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        // Lấy lại danh sách môn học và cập nhật lại danh sách trên ListView
-        Cursor cursor = database.getDataSubject(id_major);
-        ArrayListSubject.clear();
-        while (cursor.moveToNext()) {
-            int id = cursor.getInt(0);
-            String title = cursor.getString(1);
-            int credit = cursor.getInt(2);
-            String time = cursor.getString(3);
-            String place = cursor.getString(4);
-            int id_mj = cursor.getInt(5);
-
-            ArrayListSubject.add(new Subject(id, title, credit, time, place, id_mj));
-        }
-        cursor.moveToFirst();
-        cursor.close();
-
-        adaptersubject.notifyDataSetChanged(); // Cập nhật lại danh sách hiển thị trên ListView
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//
+//        // Lấy lại danh sách môn học và cập nhật lại danh sách trên ListView
+//        Cursor cursor = database.getDataSubject(id_major);
+//        ArrayListSubject.clear();
+//        while (cursor.moveToNext()) {
+//            int id = cursor.getInt(0);
+//            String title = cursor.getString(1);
+//            int credit = cursor.getInt(2);
+//            String time = cursor.getString(3);
+//            String place = cursor.getString(4);
+//            int id_mj = cursor.getInt(5);
+//
+//            ArrayListSubject.add(new Subject(id, title, credit, time, place, id_mj));
+//        }
+//        cursor.moveToFirst();
+//        cursor.close();
+//
+//        adaptersubject.notifyDataSetChanged(); // Cập nhật lại danh sách hiển thị trên ListView
+//    }
 
 
 
@@ -257,7 +257,7 @@ public class ActivitySubject extends AppCompatActivity {
     }
 
     //Phương thức xoá subject
-    public void delete(final int position) {
+    public void deleteSubject(final int position) {
         //Đối tượng cửa sổ
         Dialog dialog = new Dialog(this);
 
@@ -284,7 +284,10 @@ public class ActivitySubject extends AppCompatActivity {
                 database.DeleteStudent(position);
                 //cập nhật lại activity subject
                 Intent intent = new Intent(ActivitySubject.this, ActivitySubject.class);
+                intent.putExtra("id_major",id_major);
+
                 startActivity(intent);
+
                 Toast.makeText(ActivitySubject.this, "Xoá môn học thành công", Toast.LENGTH_SHORT).show();
 
             }

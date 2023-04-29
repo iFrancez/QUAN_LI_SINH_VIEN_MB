@@ -180,7 +180,7 @@ public class database extends SQLiteOpenHelper {
         //query(): là phương thức để thực hiện câu truy vấn trên bảng, và trả về một đối tượng Cursor chứa các bản ghi phù hợp.
         SQLiteDatabase db = this.getReadableDatabase();
         String[] projection = {MAJORS_CODE};
-        String selection = MAJORS_CODE.toLowerCase() + "=?";
+        String selection = "LOWER(" + MAJORS_CODE + ")=?";
         String[] selectionArgs = {majorcode.toLowerCase()};
         Cursor cursor = db.query(TABLE_MAJORS, projection, selection, selectionArgs, null, null, null);
         if (cursor.getCount() > 0) return true;
@@ -248,8 +248,8 @@ public class database extends SQLiteOpenHelper {
     public Boolean checkClass(String classCode, String teacherCode) {
         SQLiteDatabase db = this.getReadableDatabase();
         String[] projection = {CLASS_CODE, TEACHER_CODE};
-        String selection ="(" + CLASS_CODE + "=? OR " + TEACHER_CODE + "=?" + ") OR ("+ CLASS_CODE + "=? AND " + TEACHER_CODE + "=?" + ")";
-        String[] selectionArgs = {classCode, teacherCode};
+        String selection = "LOWER(" + CLASS_CODE + ")=? OR LOWER(" + TEACHER_CODE + ")=? OR (LOWER(" + CLASS_CODE + ")=? AND LOWER(" + TEACHER_CODE + ")=?)";
+        String[] selectionArgs = {classCode.toLowerCase(), teacherCode.toLowerCase()};
         Cursor cursor = db.query(TABLE_CLASS, projection, selection, selectionArgs, null, null, null);
         if (cursor.getCount() > 0) return true;
         else return false;
@@ -260,7 +260,6 @@ public class database extends SQLiteOpenHelper {
     public void AddSubject(Subject subject) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-
         values.put(SUBJECT_TITLE, subject.getSubject_title());
         values.put(CREDITS, subject.getNumber_of_credit());
         values.put(TIME, subject.getTime());
@@ -279,7 +278,7 @@ public class database extends SQLiteOpenHelper {
         //query(): là phương thức để thực hiện câu truy vấn trên bảng, và trả về một đối tượng Cursor chứa các bản ghi phù hợp.
         SQLiteDatabase db = this.getReadableDatabase();
         String[] projection = {SUBJECT_TITLE};
-        String selection = SUBJECT_TITLE.toLowerCase() + "=?";
+        String selection = "LOWER(" + SUBJECT_TITLE + ")=?";
         String[] selectionArgs = {subjectTitle.toLowerCase()};
         Cursor cursor = db.query(TABLE_SUBJECTS, projection, selection, selectionArgs, null, null, null);
         if (cursor.getCount() > 0) return true;
@@ -299,21 +298,6 @@ public class database extends SQLiteOpenHelper {
     }
 
 
-    //kiểm tra xem có tên sinh viên đó hay chưa
-    public Boolean checkStudent(String codeStudent) {
-        //projection: là một mảng các cột cần lấy ra từ bảng.
-        //selection: là chuỗi điều kiện để chọn các bản ghi phù hợp.
-        //selectionArgs: là một mảng các giá trị được truyền vào trong chuỗi điều kiện.
-        //query(): là phương thức để thực hiện câu truy vấn trên bảng, và trả về một đối tượng Cursor chứa các bản ghi phù hợp.
-        SQLiteDatabase db = this.getReadableDatabase();
-        String[] projection = {STUDENT_CODE};
-        String selection = STUDENT_CODE.toLowerCase() + "=?";
-        String[] selectionArgs = {codeStudent.toLowerCase()};
-        Cursor cursor = db.query(TABLE_STUDENT, projection, selection, selectionArgs, null, null, null);
-        if (cursor.getCount() > 0) return true;
-        else return false;
-    }
-
     //lấy giữ liệu subject
     public Cursor getDataSubject(int id_major) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -331,13 +315,21 @@ public class database extends SQLiteOpenHelper {
         return res;
     }
 
-    //dùng để xoá các student của subject
-    public int DeleteSubjectStudent(int i) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        int res = db.delete(TABLE_STUDENT, ID_STUDENT + " = " + i, null);
-        return res;
-    }
 
+    //kiểm tra xem có tên sinh viên đó hay chưa
+    public Boolean checkStudent(String codeStudent) {
+        //projection: là một mảng các cột cần lấy ra từ bảng.
+        //selection: là chuỗi điều kiện để chọn các bản ghi phù hợp.
+        //selectionArgs: là một mảng các giá trị được truyền vào trong chuỗi điều kiện.
+        //query(): là phương thức để thực hiện câu truy vấn trên bảng, và trả về một đối tượng Cursor chứa các bản ghi phù hợp.
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] projection = {STUDENT_CODE};
+        String selection = "LOWER(" + STUDENT_CODE + ")=?";
+        String[] selectionArgs = {codeStudent.toLowerCase()};
+        Cursor cursor = db.query(TABLE_STUDENT, projection, selection, selectionArgs, null, null, null);
+        if (cursor.getCount() > 0) return true;
+        else return false;
+    }
     //insert student
     public void AddStudent(Student student) {
         SQLiteDatabase db = this.getWritableDatabase();

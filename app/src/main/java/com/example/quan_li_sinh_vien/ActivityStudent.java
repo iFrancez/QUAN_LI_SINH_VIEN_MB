@@ -122,6 +122,9 @@ public class ActivityStudent extends AppCompatActivity {
                 // Cập nhật lại adapter cho ListView
                 adapterstudent = new adapterstudent(ActivityStudent.this, ArrayListStudent);
                 listViewStudent.setAdapter(adapterstudent);
+
+                //resetEditTextSubject
+                searchEditTextStudent.setText("");
             }
         });
 
@@ -144,8 +147,7 @@ public class ActivityStudent extends AppCompatActivity {
             adapterstudent.clear();
             listViewStudent.setAdapter(adapterstudent);
         }
-        //resetEditTextSubject
-        searchEditTextStudent.setText("");
+
     }
 
     //Thêm icon add

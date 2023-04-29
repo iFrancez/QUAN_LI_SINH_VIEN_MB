@@ -87,7 +87,7 @@ public class ActivityAddSubject extends AppCompatActivity {
                         intent.putExtra("id_major",id_major);
                         startActivity(intent);
 
-                        Toast.makeText(ActivityAddSubject.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActivityAddSubject.this, "Thêm thành công chưa", Toast.LENGTH_SHORT).show();
                     }
                     else{
                         Toast.makeText(ActivityAddSubject.this, "Môn học đã tồn tại ! Vui lòng thử lại", Toast.LENGTH_SHORT).show();
