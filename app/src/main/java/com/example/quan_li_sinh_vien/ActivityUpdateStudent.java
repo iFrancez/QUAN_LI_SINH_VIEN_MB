@@ -230,9 +230,10 @@ public class ActivityUpdateStudent extends AppCompatActivity {
     //tính điểm trung bình
     private static float avegepoint(float processpoint, float middlepoint, float finalpoint) {
         float avege = processpoint*0.2f + middlepoint*0.3f + finalpoint*0.5f;
+
         if (avege < 0 || avege > 10) {
             return -1;
         }
-        return avege;
+        return Float.parseFloat(String.format("%.2f", avege));
     }
 }

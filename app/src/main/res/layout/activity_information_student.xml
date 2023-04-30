@@ -133,7 +133,13 @@
             android:text="TPHCM"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"></TextView>
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="điểm"
+            android:textColor="#000000"
+            android:layout_marginLeft="5dp"
+            android:textSize="20sp"></TextView>
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -156,7 +162,13 @@
             android:text="TPHCM"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"></TextView>
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="điểm"
+            android:textColor="#000000"
+            android:layout_marginLeft="5dp"
+            android:textSize="20sp"></TextView>
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -179,7 +191,13 @@
             android:text="TPHCM"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"></TextView>
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="điểm"
+            android:textColor="#000000"
+            android:layout_marginLeft="5dp"
+            android:textSize="20sp"></TextView>
     </LinearLayout>
 
     <LinearLayout
@@ -204,6 +222,13 @@
             android:text="TPHCM"
             android:textColor="#000000"
             android:textSize="20dp"></TextView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="điểm"
+            android:textColor="#000000"
+            android:layout_marginLeft="5dp"
+            android:textSize="20sp"></TextView>
 
     </LinearLayout>
 
