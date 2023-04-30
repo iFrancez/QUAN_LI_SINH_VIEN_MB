@@ -118,22 +118,18 @@ public class ActivityUpdateStudent extends AppCompatActivity {
 
                 if (name.equals("") || code.equals("") || birth.equals("")) {
                     Toast.makeText(ActivityUpdateStudent.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                } else if (!isValidDate(birth)) {
+                    Toast.makeText(ActivityUpdateStudent.this, "Ngày sinh không hợp lệ", Toast.LENGTH_SHORT).show();
                 } else {
-                    Student student = createStudent();
+                    Student student = createStudent(id_class);
                     // Thực hiện cập nhật thông tin học sinh
-                    if(database.UpdateStudent(student, id)){
-                        // Hiển thị thông báo cập nhật thành công và chuyển đến màn hình danh sách học sinh
-                        Intent intent = new Intent(ActivityUpdateStudent.this, ActivityStudent.class);
-                        intent.putExtra("id_class", id_class);
-                        startActivity(intent);
-                        Toast.makeText(ActivityUpdateStudent.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
-                    }
-                    else if (!isValidDate(birth)) {
-                        Toast.makeText(ActivityUpdateStudent.this, "Ngày sinh không hợp lệ", Toast.LENGTH_SHORT).show();
-                    }
-                    else{
-                        Toast.makeText(ActivityUpdateStudent.this, "Ngày sinh không hợp lệ", Toast.LENGTH_SHORT).show();
-                    }
+                    database.UpdateStudent(student, id);
+
+                    // Hiển thị thông báo cập nhật thành công và chuyển đến màn hình danh sách học sinh
+                    Intent intent = new Intent(ActivityUpdateStudent.this, ActivityStudent.class);
+                    intent.putExtra("id_class", id_class);
+                    startActivity(intent);
+                    Toast.makeText(ActivityUpdateStudent.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
 
                 }
             }
@@ -150,7 +146,7 @@ public class ActivityUpdateStudent extends AppCompatActivity {
     }
 
     //create student
-    private Student createStudent() {
+    private Student createStudent(int id_class) {
         String name = editTextUpdateName.getText().toString().trim();
         String code = editTextUpdateCode.getText().toString().trim();
         String birth = editTextUpdateBirth.getText().toString().trim();
@@ -161,7 +157,7 @@ public class ActivityUpdateStudent extends AppCompatActivity {
             sex = "Nữ";
         }
 
-        Student student = new Student(name, sex, code, birth);
+        Student student = new Student(name, sex, code, birth,id_class);
         return student;
     }
 
