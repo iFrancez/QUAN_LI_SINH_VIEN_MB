@@ -24,7 +24,7 @@ import java.util.Locale;
 public class database extends SQLiteOpenHelper {
 
     //Tên database
-    private static String DATABASE_NAME = "studentmanagement.db";
+    private static String DATABASE_NAME = "studentmanagement3.db";
 
     //Bản Khoa
     private static String TABLE_MAJORS = "major";
@@ -70,11 +70,13 @@ public class database extends SQLiteOpenHelper {
     private static String STUDENT_CODE = "studentcode";
     private static String DATE_OF_BIRTH = "dateofbirth";
 
-//    private static String STUDY_PROCESS = "studyofprocess";
-//
-//    private static String MID_TERM = "mid";
-//
-//    private static String END_TERM = "endterm";
+    private static String STUDY_PROCESS = "studyofprocess";
+
+    private static String MID_TERM = "mid";
+
+    private static String END_TERM = "endterm";
+
+    private static String AVEGE_TERM = "avegeterm";
 
 
     // NHỚ CÁCH MẤY CÁI KIỂU DỮ LIỆU RA KO LÀ LỖI Á VD: " TEXT "
@@ -114,9 +116,10 @@ public class database extends SQLiteOpenHelper {
 //            + ID_SUBJECTS + " INTEGER , FOREIGN KEY ( " + ID_SUBJECTS + " ) REFERENCES " +
 //            TABLE_SUBJECTS + "(" + ID_SUBJECTS + "))";
 
-//            + STUDY_PROCESS + "REAL,"
-//            + MID_TERM + "REAL,"
-//            + END_TERM +"REAL,"
+            + STUDY_PROCESS + " REAL DEFAULT 0, "
+            + MID_TERM + " REAL DEFAULT 0, "
+            + END_TERM +" REAL DEFAULT 0, "
+            + AVEGE_TERM + " REAL DEFAULT 0, "
             + ID_CLASS + " INTEGER , FOREIGN KEY ( " + ID_CLASS + " ) REFERENCES " +
             TABLE_CLASS + "(" + ID_CLASS + "))";
 
@@ -333,14 +336,12 @@ public class database extends SQLiteOpenHelper {
     //insert student
     public void AddStudent(Student student) {
         SQLiteDatabase db = this.getWritableDatabase();
-
         ContentValues values = new ContentValues();
         values.put(STUDENT_NAME, student.getStudent_name());
         values.put(SEX, student.getSex());
         values.put(STUDENT_CODE, student.getStudent_code());
         values.put(DATE_OF_BIRTH, student.getDate_of_birth());
         values.put(ID_CLASS, student.getId_class());
-
         db.insert(TABLE_STUDENT, null, values);
         db.close();
     }
@@ -369,6 +370,10 @@ public class database extends SQLiteOpenHelper {
         values.put(STUDENT_CODE, student.getStudent_code());
         values.put(SEX, student.getSex());
         values.put(DATE_OF_BIRTH, student.getDate_of_birth());
+        values.put(STUDY_PROCESS, student.getPoint_process());
+        values.put(MID_TERM,student.getMidterm_score());
+        values.put(END_TERM,student.getFinal_score());
+        values.put(AVEGE_TERM,student.getAvege_score());
         db.update(TABLE_STUDENT, values, ID_STUDENT + " = " + id, null);
         boolean isStudentDate = isValidDate(student.getDate_of_birth());
         if (isStudentDate) {

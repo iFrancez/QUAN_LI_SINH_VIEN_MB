@@ -78,10 +78,12 @@ public class ActivityStudent extends AppCompatActivity {
             String sex = cursor.getString(2);
             String code = cursor.getString(3);
             String birthday = cursor.getString(4);
-            int id_sub=cursor.getInt(5);
-
-
-            ArrayListStudent.add(new Student(id,name,sex,code,birthday,id_sub));
+            float processpoint = cursor.getFloat(5);
+            float processmiddle = cursor.getFloat(6);
+            float processfinal = cursor.getFloat(7);
+            float avege = cursor.getFloat(8);
+            int id_sub=cursor.getInt(9);
+            ArrayListStudent.add(new Student(id,name,sex,code,birthday,processpoint,processmiddle,processfinal,avege,id_sub));
 
         }
         adapterstudent = new adapterstudent(ActivityStudent.this,ArrayListStudent);
@@ -107,16 +109,19 @@ public class ActivityStudent extends AppCompatActivity {
                 // Tải lại dữ liệu ban đầu
                 ArrayListStudent.clear();
                 Cursor cursor = database.getDataStudent(id_class);
-                while (cursor.moveToNext()) {
+                while (cursor.moveToNext()){
                     int id = cursor.getInt(0);
                     String name = cursor.getString(1);
                     String sex = cursor.getString(2);
                     String code = cursor.getString(3);
                     String birthday = cursor.getString(4);
-                    int id_sub=cursor.getInt(5);
+                    float processpoint = cursor.getFloat(5);
+                    float processmiddle = cursor.getFloat(6);
+                    float processfinal = cursor.getFloat(7);
+                    float avege = cursor.getFloat(8);
+                    int id_sub=cursor.getInt(9);
+                    ArrayListStudent.add(new Student(id,name,sex,code,birthday,processpoint,processmiddle,processfinal,avege,id_sub));
 
-
-                    ArrayListStudent.add(new Student(id,name,sex,code,birthday,id_sub));
                 }
                 cursor.close();
                 // Cập nhật lại adapter cho ListView
@@ -203,12 +208,20 @@ public class ActivityStudent extends AppCompatActivity {
                 String sex = cursor.getString(2);
                 String code = cursor.getString(3);
                 String birth = cursor.getString(4);
-                int id_class = cursor.getInt(5);
+                float processpoint = cursor.getFloat(5);
+                float middlepoint = cursor.getFloat(6);
+                float finalpoint = cursor.getFloat(7);
+                float avegepoint = cursor.getFloat(8);
+//                int id_class = cursor.getInt(9);
 
                 intent.putExtra("name",name);
                 intent.putExtra("sex",sex);
                 intent.putExtra("code",code);
                 intent.putExtra("birth",birth);
+                intent.putExtra("processpoint",processpoint);
+                intent.putExtra("middlepoint",middlepoint);
+                intent.putExtra("finalpoint",finalpoint);
+                intent.putExtra("avegepoint",avegepoint);
                 startActivity(intent);
             }
         }
@@ -230,13 +243,21 @@ public class ActivityStudent extends AppCompatActivity {
                 String sex = cursor.getString(2);
                 String code = cursor.getString(3);
                 String birth = cursor.getString(4);
-                int id_class = cursor.getInt(5);
+                float processpoint = cursor.getFloat(5);
+                float middlepoint = cursor.getFloat(6);
+                float finalpoint = cursor.getFloat(7);
+                float avegepoint = cursor.getFloat(8);
+                int id_class = cursor.getInt(9);
 
                 intent.putExtra("name",name);
                 intent.putExtra("sex",sex);
                 intent.putExtra("code",code);
                 intent.putExtra("birth",birth);
                 intent.putExtra("id_class",id_class);
+                intent.putExtra("processpoint",processpoint);
+                intent.putExtra("middlepoint",middlepoint);
+                intent.putExtra("finalpoint",finalpoint);
+                intent.putExtra("avegepoint",avegepoint);
                 startActivity(intent);
             }
         }

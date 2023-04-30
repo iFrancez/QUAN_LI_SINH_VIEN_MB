@@ -7,6 +7,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,12 +21,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class ActivityUpdateStudent extends AppCompatActivity {
 
-    EditText editTextUpdateName, editTextUpdateCode, editTextUpdateBirth;
+    EditText editTextUpdateName, editTextUpdateCode, editTextUpdateBirth, editTextProcessPoint, editTextMiddlePoint, editTextFinalPoint;
     RadioButton rMale, rFemale;
-    Button btnUpdateStudent;
+    Button btnUpdateStudent,btnCalculate;
     com.example.quan_li_sinh_vien.database.database database;
 
     @Override
@@ -38,6 +40,12 @@ public class ActivityUpdateStudent extends AppCompatActivity {
         editTextUpdateName = findViewById(R.id.EditTextUpdateStudentName);
         rFemale = findViewById(R.id.radiobuttonUpdateFemale);
         rMale = findViewById(R.id.radiobuttonUpdateMale);
+        editTextProcessPoint = findViewById(R.id.EditTextUpdateStudentProcessPoint);
+        editTextProcessPoint.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL); //số thực hoặc số nguyên
+        editTextMiddlePoint = findViewById(R.id.EditTextUpdateStudentMiddlePoint);
+        editTextMiddlePoint.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        editTextFinalPoint = findViewById(R.id.EditTextUpdateStudentFinalPoint);
+        editTextFinalPoint.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         btnUpdateStudent = findViewById(R.id.buttonUpdateStudent);
 
         Intent intent = getIntent();
@@ -46,6 +54,10 @@ public class ActivityUpdateStudent extends AppCompatActivity {
         String sex = intent.getStringExtra("sex");
         String code = intent.getStringExtra("code");
         String birth = intent.getStringExtra("birth");
+        float processpoint = intent.getFloatExtra("processpoint", 0);
+        float middlepoint = intent.getFloatExtra("middlepoint", 0);
+        float finalpoint = intent.getFloatExtra("finalpoint", 0);
+
         int id_class = intent.getIntExtra("id_class", 0);
 
         //Gán giá trị
@@ -60,6 +72,9 @@ public class ActivityUpdateStudent extends AppCompatActivity {
             rMale.setChecked(false);
             rFemale.setChecked(true);
         }
+        editTextProcessPoint.setText(processpoint + "");
+        editTextMiddlePoint.setText(middlepoint + "");
+        editTextFinalPoint.setText(finalpoint + "");
 
         database = new database(this);
 
@@ -97,7 +112,6 @@ public class ActivityUpdateStudent extends AppCompatActivity {
         Button btnYes = dialog.findViewById(R.id.buttonYesUpdateStudent);
         Button btnNo = dialog.findViewById(R.id.buttonNoUpdateStudent);
 
-
         //nếu đồng ý update
         btnYes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,11 +129,17 @@ public class ActivityUpdateStudent extends AppCompatActivity {
                     sex = ""; //không có RadioButton nào được chọn
                 }
 
+                String processpoint = editTextProcessPoint.getText().toString().trim();
+                String middlepoint = editTextMiddlePoint.getText().toString().trim();
+                String finalpoint = editTextFinalPoint.getText().toString().trim();
 
-                if (name.equals("") || code.equals("") || birth.equals("")) {
+                if (name.equals("") || code.equals("") || birth.equals("")||processpoint.equals("")||middlepoint.equals("")||finalpoint.equals("")) {
                     Toast.makeText(ActivityUpdateStudent.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                 } else if (!isValidDate(birth)) {
                     Toast.makeText(ActivityUpdateStudent.this, "Ngày sinh không hợp lệ", Toast.LENGTH_SHORT).show();
+                } else if (!isValidScore(Float.parseFloat(processpoint))||!isValidScore(Float.parseFloat(middlepoint))||!isValidScore(Float.parseFloat(finalpoint))) {
+                    Toast.makeText(ActivityUpdateStudent.this, "Điểm không hợp lệ", Toast.LENGTH_SHORT).show();
+
                 } else {
                     Student student = createStudent(id_class);
                     // Thực hiện cập nhật thông tin học sinh
@@ -157,7 +177,12 @@ public class ActivityUpdateStudent extends AppCompatActivity {
             sex = "Nữ";
         }
 
-        Student student = new Student(name, sex, code, birth,id_class);
+        float processpoint = Float.parseFloat(editTextProcessPoint.getText().toString().trim());
+        float middlepoint = Float.parseFloat(editTextMiddlePoint.getText().toString().trim());
+        float finalpoint = Float.parseFloat(editTextFinalPoint.getText().toString().trim());
+        float avegepoint = avegepoint(processpoint,middlepoint,finalpoint);
+
+        Student student = new Student(name, sex, code, birth,processpoint,middlepoint,finalpoint,avegepoint, id_class);
         return student;
     }
 
@@ -197,4 +222,17 @@ public class ActivityUpdateStudent extends AppCompatActivity {
         }
     }
 
+    //kiểm tra xem số thực có hợp lệ
+    private boolean isValidScore(float score) {
+        return score >= 0.0f && score <= 10.0f; // trả về true nếu số thực đưa vào nằm trong khoảng từ 0 đến 10,
+    }
+
+    //tính điểm trung bình
+    private static float avegepoint(float processpoint, float middlepoint, float finalpoint) {
+        float avege = processpoint*0.2f + middlepoint*0.3f + finalpoint*0.5f;
+        if (avege < 0 || avege > 10) {
+            return -1;
+        }
+        return avege;
+    }
 }

@@ -8,7 +8,7 @@
     tools:context=".ActivitySubjectInformation">
 
     <TextView
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="35dp"
         android:textSize="30sp"
         android:textStyle="bold"
         android:gravity="center"
@@ -21,7 +21,7 @@
         android:orientation="horizontal"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="25dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -45,7 +45,7 @@
         android:orientation="horizontal"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="25dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -69,7 +69,7 @@
         android:orientation="horizontal"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="25dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -93,7 +93,7 @@
         android:orientation="horizontal"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="25dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -112,4 +112,99 @@
             android:layout_height="match_parent"></TextView>
 
     </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:text="Điểm quá trình: "
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"></TextView>
+        <TextView
+            android:textColor="#000000"
+            android:textSize="20dp"
+            android:id="@+id/txtStudentProcessPoint"
+            android:text="TPHCM"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"></TextView>
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:text="Điểm giữa kì: "
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"></TextView>
+        <TextView
+            android:textColor="#000000"
+            android:textSize="20dp"
+            android:id="@+id/txtStudentMiddlePoint"
+            android:text="TPHCM"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"></TextView>
+
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:text="Điểm cuối kì: "
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"></TextView>
+        <TextView
+            android:textColor="#000000"
+            android:textSize="20dp"
+            android:id="@+id/txtStudentFinalPoint"
+            android:text="TPHCM"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"></TextView>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="20dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Điểm trung bình: "
+            android:textColor="#000000"
+            android:textSize="20sp"></TextView>
+
+        <TextView
+            android:id="@+id/txtStudentAvegePoint"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="TPHCM"
+            android:textColor="#000000"
+            android:textSize="20dp"></TextView>
+
+    </LinearLayout>
+
 </LinearLayout>
