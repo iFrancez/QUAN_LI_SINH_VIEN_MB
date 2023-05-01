@@ -5,8 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    android:background="#B1CBD3"
-
     tools:context=".MainActivity">
 
     <TextView
@@ -16,7 +14,8 @@
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:text="ĐĂNG KÍ"
-        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textColor="@color/blue"
         android:textSize="30sp" />
 
     <EditText
@@ -89,7 +88,7 @@
         android:layout_marginTop="30dp"
         android:background="@drawable/background_button"
         android:text="Đăng kí"
-        android:textColor="#212121"
+        android:textColor="#FFFFFF"
         android:textSize="15dp"
         tools:ignore="TextSizeCheck" />
 

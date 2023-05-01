@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#B1CBD3"
     tools:context=".HomeActivity">
 
     <TextView
@@ -15,7 +14,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="100dp"
         android:text="@string/qu_n_l_sinh_vi_n"
-        android:textColor="#BF360C"
+        android:textColor="@color/blue"
         android:textSize="30sp"
         android:textStyle="bold" />
 
