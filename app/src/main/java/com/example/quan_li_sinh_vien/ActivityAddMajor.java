@@ -78,7 +78,7 @@ public class ActivityAddMajor extends AppCompatActivity {
                         Intent intent = new Intent(ActivityAddMajor.this, ActivityMajor.class);
                         startActivity(intent);
 
-                        Toast.makeText(ActivityAddMajor.this, "Thêm thành công", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActivityAddMajor.this, "Thêm ngành học thành công", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(ActivityAddMajor.this, "Ngành học đã tồn tại ! Vui lòng thử lại", Toast.LENGTH_SHORT).show();
                     }

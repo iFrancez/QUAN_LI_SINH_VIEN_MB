@@ -134,7 +134,7 @@ public class ActivityUpdateClass extends AppCompatActivity {
                     //gửi id của subject
                     intent.putExtra("id_subject",id_subject);
                     startActivity(intent);
-                    Toast.makeText(ActivityUpdateClass.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityUpdateClass.this, "Cập nhật lớp học thành công", Toast.LENGTH_SHORT).show();
                 }
             }
         });

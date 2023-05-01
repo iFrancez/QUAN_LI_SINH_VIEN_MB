@@ -80,7 +80,7 @@ public class ActivityUpdateMajor extends AppCompatActivity {
                     //update thành công thì qua majoractivity
                     Intent intent = new Intent(ActivityUpdateMajor.this,ActivityMajor.class);
                     startActivity(intent);
-                    Toast.makeText(ActivityUpdateMajor.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityUpdateMajor.this, "Cập nhật ngành học thành công", Toast.LENGTH_SHORT).show();
                 }
             }
         });

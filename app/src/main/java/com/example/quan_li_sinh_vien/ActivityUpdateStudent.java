@@ -149,7 +149,7 @@ public class ActivityUpdateStudent extends AppCompatActivity {
                     Intent intent = new Intent(ActivityUpdateStudent.this, ActivityStudent.class);
                     intent.putExtra("id_class", id_class);
                     startActivity(intent);
-                    Toast.makeText(ActivityUpdateStudent.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityUpdateStudent.this, "Cập nhật học sinh thành công", Toast.LENGTH_SHORT).show();
 
                 }
             }

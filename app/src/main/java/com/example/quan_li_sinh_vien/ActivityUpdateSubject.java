@@ -88,7 +88,7 @@ public class ActivityUpdateSubject extends AppCompatActivity {
                     Intent intent = new Intent(ActivityUpdateSubject.this, ActivitySubject.class);
                     intent.putExtra("id_major",id_major);
                     startActivity(intent);
-                    Toast.makeText(ActivityUpdateSubject.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityUpdateSubject.this, "Cập nhật môn học thành công", Toast.LENGTH_SHORT).show();
                 }
 
             }
