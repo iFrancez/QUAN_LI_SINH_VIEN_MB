@@ -23,7 +23,9 @@
         android:layout_height="60dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:hint="Tên ngành học"></EditText>
+        android:hint="Tên ngành học"
+        android:drawableEnd="@drawable/baseline_drive_file_rename_outline_24"
+        ></EditText>
 
     <EditText
         android:id="@+id/EditTextMajorCode"
@@ -31,7 +33,9 @@
         android:layout_height="60dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:hint="Mã khoa"></EditText>
+        android:hint="Mã khoa"
+        android:drawableEnd="@drawable/baseline_drive_file_rename_outline_24"
+        ></EditText>
 
     <EditText
         android:id="@+id/EditTextMajorSchool"
@@ -39,7 +43,9 @@
         android:layout_height="60dp"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:hint="Trường học"></EditText>
+        android:hint="Trường học"
+        android:drawableEnd="@drawable/baseline_school_24"
+        ></EditText>
 
 
 

@@ -9,10 +9,10 @@
 
     <TextView
         android:layout_marginTop="80dp"
-        android:textSize="30sp"
+        android:textSize="25sp"
         android:textStyle="bold"
         android:gravity="center"
-        android:textColor="#F00"
+        android:textColor="@color/blue"
         android:text="Thông tin môn học"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></TextView>

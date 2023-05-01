@@ -8,10 +8,11 @@
     tools:context=".ActivityAddSubject">
     <TextView
         android:layout_marginTop="80dp"
-        android:textColor="#F44336"
+        android:textSize="25sp"
         android:gravity="center"
         android:textStyle="bold"
         android:text="Thêm môn học"
+        android:textColor="@color/blue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></TextView>
     
@@ -21,35 +22,43 @@
         android:id="@+id/EditTextSubjectTitle"
         android:hint="Tên môn học"
         android:layout_width="300dp"
-        android:layout_height="60dp"></EditText>
+        android:layout_height="60dp"
+        android:drawableEnd="@drawable/baseline_subtitles_24">
+    </EditText>
     <EditText
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
         android:id="@+id/EditTextSubjectCredit"
         android:hint="Số tín chỉ"
         android:layout_width="300dp"
-        android:layout_height="60dp"></EditText>
+        android:layout_height="60dp"
+        android:drawableEnd="@drawable/baseline_confirmation_number_24">
+    </EditText>
     <EditText
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
         android:id="@+id/EditTextSubjectTime"
         android:hint="Thời gian học"
         android:layout_width="300dp"
-        android:layout_height="60dp"></EditText>
+        android:layout_height="60dp"
+        android:drawableEnd="@drawable/baseline_access_time_24"></EditText>
     <EditText
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
         android:id="@+id/EditTextSubjectPlace"
         android:hint="Nơi học"
         android:layout_width="300dp"
-        android:layout_height="60dp"></EditText>
+        android:layout_height="60dp"
+        android:drawableEnd="@drawable/baseline_place_24"></EditText>
     
     <Button
 
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
-        android:text="Thêm"
+        android:text="Thêm môn học"
         android:id="@+id/buttonAddSubject"
-        android:layout_width="wrap_content"
+        android:textColor="#FFFFFF"
+        android:background="@drawable/background_button_2"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"></Button>
 </LinearLayout>
