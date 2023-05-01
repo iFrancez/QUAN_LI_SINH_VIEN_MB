@@ -2,23 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="350dp"
-    android:layout_height="250dp"
-    android:background="#92AAAE"
+    android:layout_height="230dp"
+    android:background="@drawable/rounded_background"
     android:orientation="vertical"
     tools:ignore="TextSizeCheck">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
+        android:textColor="@color/white"
         android:gravity="center"
-        android:text="Bạn có muốn thêm môn học không ?\nKhông thể thay đổi tên môn học nếu đã thêm vào danh sách"
-        android:textSize="25sp"></TextView>
+        android:text="Bạn muốn thêm môn học không ?\nKhông thể thay đổi tên môn học nếu đã thêm vào danh sách"
+        android:textSize="22sp"></TextView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -27,16 +28,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="15dp"
-            android:background="#FFFFFF"
+            android:background="@drawable/round_background_yes_no"
             android:text="@string/c"
             style="?android:attr/buttonBarButtonStyle"></Button>
 
         <Button
+            android:background="@drawable/round_background_yes_no"
             android:id="@+id/buttonNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="15dp"
-            android:background="#FFFFFF"
             android:text="@string/kh_ng"
             style="?android:attr/buttonBarButtonStyle"></Button>
     </LinearLayout>

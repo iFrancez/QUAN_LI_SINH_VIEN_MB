@@ -3,36 +3,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ACA388"
+    android:background="@drawable/rounded_background"
     android:descendantFocusability="blocksDescendants"
     android:orientation="horizontal">
 
     <LinearLayout
-        android:layout_width="200dp"
+        android:layout_width="210dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="15dp">
 
         <TextView
             android:id="@+id/TextViewClassTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Lớp học"
-            android:textColor="#000000"
-            android:textSize="25sp"></TextView>
+            android:textColor="#FFFFFF"
+            android:textSize="25sp">
+
+        </TextView>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView
-                android:textColor="#000000"
+                android:textColor="#FFFFFF"
                 android:textSize="20sp"
                 android:text="Mã lớp: "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"></TextView>
             <TextView
                 android:id="@+id/TextViewCodeClass"
-                android:textColor="#000000"
+                android:textColor="#FFFFFF"
                 android:textSize="20sp"
                 android:text="3"
                 android:layout_width="wrap_content"
@@ -44,7 +46,7 @@
         android:id="@+id/classinformation"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="20dp"
         android:src="@drawable/baseline_subject_24"
         tools:ignore="SpeakableTextPresentCheck"></ImageButton>
 
@@ -53,7 +55,7 @@
         android:id="@+id/classupdate"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="20dp"
         android:src="@drawable/baseline_update_24"
         tools:ignore="SpeakableTextPresentCheck"></ImageButton>
 
@@ -62,7 +64,7 @@
         android:id="@+id/classdelete"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="20dp"
         android:src="@drawable/baseline_delete_24"
         tools:ignore="SpeakableTextPresentCheck"></ImageButton>
 </LinearLayout>

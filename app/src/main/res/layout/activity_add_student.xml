@@ -7,15 +7,17 @@
     android:orientation="vertical"
     tools:context=".ActivityAddSubject">
     <TextView
-        android:layout_marginTop="80dp"
-        android:textColor="#F44336"
+        android:layout_marginTop="50dp"
+        android:textColor="@color/blue"
         android:gravity="center"
         android:textStyle="bold"
+        android:textSize="25sp"
         android:text="Thêm sinh viên"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></TextView>
 
     <EditText
+        android:drawableEnd="@drawable/baseline_drive_file_rename_outline_24"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
         android:id="@+id/EditTextStudentName"
@@ -57,6 +59,7 @@
     </RadioGroup>
 
     <EditText
+        android:drawableEnd="@drawable/baseline_code_24"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
         android:id="@+id/EditTextStudentCode"
@@ -65,6 +68,7 @@
         android:layout_height="60dp"></EditText>
 
     <EditText
+        android:drawableEnd="@drawable/baseline_calendar_month_24"
         android:inputType="datetime"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
@@ -74,11 +78,11 @@
         android:layout_height="60dp"></EditText>
 
     <Button
-
-        android:layout_marginTop="20dp"
+        android:textColor="@color/white"
+        android:background="@drawable/background_button_2"        android:layout_marginTop="20dp"
         android:layout_gravity="center"
-        android:text="Thêm"
+        android:text="Thêm sinh viên"
         android:id="@+id/buttonAddStudent"
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"></Button>
 </LinearLayout>

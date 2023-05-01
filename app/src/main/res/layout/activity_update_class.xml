@@ -10,10 +10,11 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:gravity="center"
         android:text="Cập nhật lớp học"
-        android:textColor="#F44336"
+        android:textColor="@color/blue"
+        android:textSize="25sp"
         android:textStyle="bold"></TextView>
 
     <EditText
@@ -22,6 +23,7 @@
         android:layout_height="60dp"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
+        android:drawableEnd="@drawable/baseline_class_24"
         android:hint="Cập nhật lớp"></EditText>
 
     <EditText
@@ -31,6 +33,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:hint="Cập nhật mã lớp"
+        android:drawableEnd="@drawable/baseline_code_off_24"
         android:enabled="true"
         android:focusable="false"></EditText>
 
@@ -40,6 +43,7 @@
         android:layout_height="60dp"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
+        android:drawableEnd="@drawable/baseline_drive_file_rename_outline_24"
         android:hint="Cập nhật họ tên giảng viên"></EditText>
 
 
@@ -54,7 +58,7 @@
 
     <RadioGroup
         android:layout_width="300dp"
-        android:layout_height="70dp"
+        android:layout_height="45dp"
         android:layout_gravity="center"
         android:orientation="horizontal"
         android:paddingTop="5dp">
@@ -86,6 +90,7 @@
         android:layout_marginTop="5dp"
         android:hint="Cập nhật mã giảng viên"
         android:enabled="true"
+        android:drawableEnd="@drawable/baseline_code_off_24"
         android:focusable="false"></EditText>
 
     <EditText
@@ -95,14 +100,18 @@
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:hint="Cập nhật ngày sinh"
+        android:drawableEnd="@drawable/baseline_calendar_month_24"
         android:inputType="datetime"></EditText>
 
     <Button
 
         android:id="@+id/buttonUpdateClass"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
-        android:text="Cập nhật"></Button>
+        android:text="Cập nhật lớp học"
+        android:textColor="@color/white"
+        android:background="@drawable/background_button_2"></Button>
+
 </LinearLayout>
