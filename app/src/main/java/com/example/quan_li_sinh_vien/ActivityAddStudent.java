@@ -101,7 +101,7 @@ public class ActivityAddStudent extends AppCompatActivity {
                     Toast.makeText(ActivityAddStudent.this, "Ngày sinh không hợp lệ", Toast.LENGTH_SHORT).show();
                 }else {
                     Boolean checkStudents = database.checkStudent(code);
-                    if (!checkStudents) {
+//                    if (!checkStudents) {  // Nếu kiểm tra thì chỉ kiểm tra hết luôn VD: trong hàm này nếu thêm 1 lớp mới và thêm 1 sinh viên trong lớp đó thì nó sẽ không được trùng với mssv có trên bảng database luôn tại sv có thể tham gia nhiều lớp
                         Student student = CreateStudent(id_class);
 
                         database.AddStudent(student);
@@ -111,9 +111,9 @@ public class ActivityAddStudent extends AppCompatActivity {
                         startActivity(intent);
 
                         Toast.makeText(ActivityAddStudent.this, "Thêm học sinh thành công", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(ActivityAddStudent.this, "Học sinh đã tồn tại ! Vui lòng thử lại", Toast.LENGTH_SHORT).show();
-                    }
+//                    } else {
+//                        Toast.makeText(ActivityAddStudent.this, "Học sinh đã tồn tại ! Vui lòng thử lại", Toast.LENGTH_SHORT).show();
+//                    }
                 }
             }
         });
