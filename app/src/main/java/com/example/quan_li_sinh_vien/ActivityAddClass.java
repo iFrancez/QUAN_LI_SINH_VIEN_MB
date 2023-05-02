@@ -105,7 +105,7 @@ public class ActivityAddClass extends AppCompatActivity {
                     Toast.makeText(ActivityAddClass.this, "Ngày sinh không hợp lệ", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Boolean checkClass = database.checkClass(code_class, code_teacher);
+                    Boolean checkClass = database.checkClass(code_class);
                     if (!checkClass) {
                         ClassSub classSub = createClass(id_subject);
                         database.AddClass(classSub);
@@ -114,7 +114,7 @@ public class ActivityAddClass extends AppCompatActivity {
                         startActivity(intent);
                         Toast.makeText(ActivityAddClass.this, "Thêm lớp học thành công", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(ActivityAddClass.this, "Mã giảng viên hoặc mã lớp học đã tồn tại hoặc cả hai ! Vui lòng thử lại", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActivityAddClass.this, "Mã lớp học đã tồn tại ! Vui lòng thử lại", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

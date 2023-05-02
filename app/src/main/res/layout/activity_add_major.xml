@@ -34,7 +34,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:hint="Mã khoa"
-        android:drawableEnd="@drawable/baseline_drive_file_rename_outline_24"
+        android:drawableEnd="@drawable/baseline_code_24"
         ></EditText>
 
     <EditText

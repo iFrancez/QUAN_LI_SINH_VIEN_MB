@@ -113,9 +113,6 @@ public class database extends SQLiteOpenHelper {
             + SEX + " TEXT, "
             + STUDENT_CODE + " TEXT, "
             + DATE_OF_BIRTH + " TEXT, "
-//            + ID_SUBJECTS + " INTEGER , FOREIGN KEY ( " + ID_SUBJECTS + " ) REFERENCES " +
-//            TABLE_SUBJECTS + "(" + ID_SUBJECTS + "))";
-
             + STUDY_PROCESS + " REAL DEFAULT 0, "
             + MID_TERM + " REAL DEFAULT 0, "
             + END_TERM +" REAL DEFAULT 0, "
@@ -248,11 +245,11 @@ public class database extends SQLiteOpenHelper {
         return true;
     }
     //kiểm tra xem có mã giảng viên và mã lớp đó hay chưa
-    public Boolean checkClass(String classCode, String teacherCode) {
+    public Boolean checkClass(String classCode) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] projection = {CLASS_CODE, TEACHER_CODE};
-        String selection = "LOWER(" + CLASS_CODE + ")=? OR LOWER(" + TEACHER_CODE + ")=? OR (LOWER(" + CLASS_CODE + ")=? AND LOWER(" + TEACHER_CODE + ")=?)";
-        String[] selectionArgs = {classCode.toLowerCase(), teacherCode.toLowerCase()};
+        String[] projection = {CLASS_CODE};
+        String selection = "LOWER(" + CLASS_CODE + ")=?";
+        String[] selectionArgs = {classCode.toLowerCase()};
         Cursor cursor = db.query(TABLE_CLASS, projection, selection, selectionArgs, null, null, null);
         if (cursor.getCount() > 0) return true;
         else return false;

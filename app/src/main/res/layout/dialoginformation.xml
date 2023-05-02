@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="#646464"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+
+<LinearLayout
     android:layout_width="350dp"
-    android:layout_height="450dp"
+    android:layout_height="420dp"
     android:background="@drawable/rounded_background"
     android:orientation="vertical"
     tools:ignore="TextSizeCheck">
@@ -11,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:text="Thành viên nhóm"
         android:textColor="#FFFFFF"
         android:textSize="25sp"
@@ -20,7 +25,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="5dp"
 
         android:text=
         " MSSV: 47.01.104.154\n    Phan Nguyễn Thanh Pháp
@@ -32,4 +37,5 @@
         android:textColor="#FFFFFF"
         android:textSize="25sp"
         android:textStyle="bold" />
+</LinearLayout>
 </LinearLayout>

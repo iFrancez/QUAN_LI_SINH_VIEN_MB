@@ -162,7 +162,7 @@ public class ActivityClass extends AppCompatActivity {
             listViewClass.setAdapter(adapterclass);
             adapterclass.notifyDataSetChanged();
         } else {
-            Toast.makeText(this, "Không tìm thấy tên môn học", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Không tìm thấy lớp học", Toast.LENGTH_SHORT).show();
             adapterclass.clear();
             listViewClass.setAdapter(adapterclass);
         }
