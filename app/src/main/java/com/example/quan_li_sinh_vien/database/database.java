@@ -15,16 +15,13 @@ import com.example.quan_li_sinh_vien.model.Subject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
 public class database extends SQLiteOpenHelper {
 
     //Tên database
-    private static String DATABASE_NAME = "studentmanagement3.db";
+    private static String DATABASE_NAME = "studentmanagement.db";
 
     //Bản Khoa
     private static String TABLE_MAJORS = "major";
@@ -78,6 +75,9 @@ public class database extends SQLiteOpenHelper {
 
     private static String AVEGE_TERM = "avegeterm";
 
+    //Tạo bảng để có thể kết nối giữa classstudent vs codestudent
+    private static String TABLE_CLASS_STUDENT = "class_student";
+    private static String ID_STUDENT_CLASS = "id_class_student";
 
     // NHỚ CÁCH MẤY CÁI KIỂU DỮ LIỆU RA KO LÀ LỖI Á VD: " TEXT "
 
@@ -120,6 +120,13 @@ public class database extends SQLiteOpenHelper {
             + ID_CLASS + " INTEGER , FOREIGN KEY ( " + ID_CLASS + " ) REFERENCES " +
             TABLE_CLASS + "(" + ID_CLASS + "))";
 
+    //Tạo bảng class_student
+    private String SQLQuery5 = "CREATE TABLE " + TABLE_CLASS_STUDENT + " ( "
+            + ID_STUDENT_CLASS+ " integer primary key AUTOINCREMENT, "
+            + ID_CLASS + " INTEGER, "
+            + STUDENT_CODE + " TEXT, "
+            + "FOREIGN KEY (" + STUDENT_CODE + ") REFERENCES " + TABLE_STUDENT + "(" + STUDENT_CODE + "), "
+            + "FOREIGN KEY (" + ID_CLASS + ") REFERENCES " + TABLE_CLASS + "(" + ID_CLASS + "))";
 
     public database(@Nullable Context context) {
         super(context, DATABASE_NAME, null, VERSION);
@@ -131,6 +138,7 @@ public class database extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL(SQLQuery2);
         sqLiteDatabase.execSQL(SQLQuery3);
         sqLiteDatabase.execSQL(SQLQuery4);
+        sqLiteDatabase.execSQL(SQLQuery5);
     }
 
     @Override
@@ -316,22 +324,20 @@ public class database extends SQLiteOpenHelper {
     }
 
 
-    //kiểm tra xem có tên sinh viên đó hay chưa
-    public Boolean checkStudent(String codeStudent) {
-        //projection: là một mảng các cột cần lấy ra từ bảng.
-        //selection: là chuỗi điều kiện để chọn các bản ghi phù hợp.
-        //selectionArgs: là một mảng các giá trị được truyền vào trong chuỗi điều kiện.
-        //query(): là phương thức để thực hiện câu truy vấn trên bảng, và trả về một đối tượng Cursor chứa các bản ghi phù hợp.
+    //kiểm tra xem có tên sinh viên đó trong lớp hay chưa
+    public boolean checkStudentExistsInClass(int id_class, String code_student) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] projection = {STUDENT_CODE};
-        String selection = "LOWER(" + STUDENT_CODE + ")=?";
-        String[] selectionArgs = {codeStudent.toLowerCase()};
-        Cursor cursor = db.query(TABLE_STUDENT, projection, selection, selectionArgs, null, null, null);
-        if (cursor.getCount() > 0) return true;
-        else return false;
+        String query = "SELECT * FROM " + TABLE_CLASS_STUDENT + " WHERE " + ID_CLASS + " = ? AND " + STUDENT_CODE + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(id_class), code_student});
+        boolean result = cursor.moveToFirst();
+        cursor.close();
+        db.close();
+        return result;
     }
-    //insert student
-    public void AddStudent(Student student) {
+
+    //Thêm học sinh vào lớp
+
+    public String AddStudent(Student student) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(STUDENT_NAME, student.getStudent_name());
@@ -341,7 +347,21 @@ public class database extends SQLiteOpenHelper {
         values.put(ID_CLASS, student.getId_class());
         db.insert(TABLE_STUDENT, null, values);
         db.close();
+        return String.valueOf(student.getStudent_code());
     }
+
+    //Thêm codestudent vào bảng kết nối
+
+    public void addClassStudent(int id_class, String code_student) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ID_CLASS, id_class);
+        contentValues.put(STUDENT_CODE, code_student);
+        db.insert(TABLE_CLASS_STUDENT, null, contentValues);
+        db.close();
+    }
+
+
 
 
     //Lấy tất cả sinh viên thuộc môn học đó

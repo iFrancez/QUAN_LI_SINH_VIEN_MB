@@ -45,6 +45,7 @@ public class ActivityAddStudent extends AppCompatActivity {
         Intent intent = getIntent();
         int id_class = intent.getIntExtra("id_class", 0);
 
+
         database = new database(this);
         buttonAddStudent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,20 +101,22 @@ public class ActivityAddStudent extends AppCompatActivity {
                 }  else if (!isValidDate(birthday)) {
                     Toast.makeText(ActivityAddStudent.this, "Ngày sinh không hợp lệ", Toast.LENGTH_SHORT).show();
                 }else {
-                    Boolean checkStudents = database.checkStudent(code);
-//                    if (!checkStudents) {  // Nếu kiểm tra thì chỉ kiểm tra hết luôn VD: trong hàm này nếu thêm 1 lớp mới và thêm 1 sinh viên trong lớp đó thì nó sẽ không được trùng với mssv có trên bảng database luôn tại sv có thể tham gia nhiều lớp
+                    boolean checkStudents = database.checkStudentExistsInClass(id_class, code); // kiểm tra sinh viên đã tồn tại trong lớp hay chưa
+                    if (!checkStudents) {
                         Student student = CreateStudent(id_class);
 
-                        database.AddStudent(student);
+                        String code_student = database.AddStudent(student);
+
+                        database.addClassStudent(id_class, code_student);
 
                         Intent intent = new Intent(ActivityAddStudent.this, ActivityStudent.class);
                         intent.putExtra("id_class", id_class);
                         startActivity(intent);
 
                         Toast.makeText(ActivityAddStudent.this, "Thêm học sinh thành công", Toast.LENGTH_SHORT).show();
-//                    } else {
-//                        Toast.makeText(ActivityAddStudent.this, "Học sinh đã tồn tại ! Vui lòng thử lại", Toast.LENGTH_SHORT).show();
-//                    }
+                    } else {
+                        Toast.makeText(ActivityAddStudent.this, "Học sinh đã tồn tại ! Vui lòng thử lại", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
