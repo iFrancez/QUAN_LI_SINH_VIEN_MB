@@ -203,33 +203,6 @@ public class ActivitySubject extends AppCompatActivity {
         }
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//
-//        // Lấy lại danh sách môn học và cập nhật lại danh sách trên ListView
-//        Cursor cursor = database.getDataSubject(id_major);
-//        ArrayListSubject.clear();
-//        while (cursor.moveToNext()) {
-//            int id = cursor.getInt(0);
-//            String title = cursor.getString(1);
-//            int credit = cursor.getInt(2);
-//            String time = cursor.getString(3);
-//            String place = cursor.getString(4);
-//            int id_mj = cursor.getInt(5);
-//
-//            ArrayListSubject.add(new Subject(id, title, credit, time, place, id_mj));
-//        }
-//        cursor.moveToFirst();
-//        cursor.close();
-//
-//        adaptersubject.notifyDataSetChanged(); // Cập nhật lại danh sách hiển thị trên ListView
-//    }
-
-
-
-
-
     public void information(final int pos) {
         Cursor cursor = database.getDataSubject(id_major);
 
