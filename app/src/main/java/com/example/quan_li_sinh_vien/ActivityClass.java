@@ -291,9 +291,6 @@ public class ActivityClass extends AppCompatActivity {
                 //xoá lớp học trong csdl
                 database.DeleteClass(id_class);
 
-                //xoá học sinh trong csdl
-                database.DeleteStudent(id_class);
-
                 Intent intent = new Intent(ActivityClass.this,ActivityClass.class);
                 intent.putExtra("id_subject",id_subject);
                 startActivity(intent);

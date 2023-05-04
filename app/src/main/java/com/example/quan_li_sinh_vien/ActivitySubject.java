@@ -254,11 +254,6 @@ public class ActivitySubject extends AppCompatActivity {
                 //xoá môn học trong csdl
                 database.DeleteSubject(position);
 
-                //xoá lớp học trong csdl
-                database.DeleteClass(position);
-
-                //xoá học sinh trong csdl
-                database.DeleteStudent(position);
                 //cập nhật lại activity subject
                 Intent intent = new Intent(ActivitySubject.this, ActivitySubject.class);
                 intent.putExtra("id_major",id_major);

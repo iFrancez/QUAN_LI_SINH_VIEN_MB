@@ -1,5 +1,6 @@
 package com.example.quan_li_sinh_vien.database;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -199,12 +200,37 @@ public class database extends SQLiteOpenHelper {
 
 
     //xoá Major
+//xoá Major
+    public void DeleteSubjectsByMajorId(int majorId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String[] whereArgs = {String.valueOf(majorId)};
+        db.delete(TABLE_SUBJECTS, ID_MAJORS + "=?", whereArgs);
+    }
+
+    public void DeleteClassesByMajorId(int majorId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String[] whereArgs = {String.valueOf(majorId)};
+        db.delete(TABLE_CLASS, ID_SUBJECTS + " IN (SELECT " + ID_SUBJECTS + " FROM " + TABLE_SUBJECTS + " WHERE " + ID_MAJORS + "=?)", whereArgs);
+    }
+
+    public void DeleteStudentsByMajorId(int majorId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String[] whereArgs = {String.valueOf(majorId)};
+        db.delete(TABLE_STUDENT, ID_CLASS + " IN (SELECT " + ID_CLASS + " FROM " + TABLE_CLASS + " WHERE " + ID_SUBJECTS + " IN (SELECT " + ID_SUBJECTS + " FROM " + TABLE_SUBJECTS + " WHERE " + ID_MAJORS + "=?))", whereArgs);
+    }
+
     public int DeleteMajor(int i) {
         //Chú ý:
         //getWritableDatabase(): là cả đọc và ghi
         //getReadableDatabase(): chỉ đọc
         SQLiteDatabase db = this.getWritableDatabase();
         int res = db.delete(TABLE_MAJORS, ID_MAJORS + "=" + i, null);
+        //xoá các bảng liên quan
+        DeleteStudentsByMajorId(i);
+        DeleteClassesByMajorId(i);
+        DeleteSubjectsByMajorId(i);
+
+
         return res;
     }
 
@@ -234,10 +260,19 @@ public class database extends SQLiteOpenHelper {
     }
 
     //xoá lớp học
+    public int DeleteStudentByClass(int classId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int res = db.delete(TABLE_STUDENT, ID_CLASS + "=" + classId, null);
+        return res;
+    }
+
     public int DeleteClass(int i) {
 
         SQLiteDatabase db = this.getWritableDatabase();
         int res = db.delete(TABLE_CLASS, ID_CLASS + "=" + i, null);
+
+        //xoá học sinh
+        DeleteStudentByClass(i);
         return res;
     }
 
@@ -283,7 +318,7 @@ public class database extends SQLiteOpenHelper {
 
 
     //kiểm tra xem có tên môn học và mã học phần đó hay chưa
-    public Boolean checkSubject(String subjectTitle,String subjectCode) {
+    public Boolean checkSubject(String subjectTitle, String subjectCode) {
         //projection: là một mảng các cột cần lấy ra từ bảng.
         //selection: là chuỗi điều kiện để chọn các bản ghi phù hợp.
         //selectionArgs: là một mảng các giá trị được truyền vào trong chuỗi điều kiện.
@@ -291,7 +326,7 @@ public class database extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         String[] projection = {SUBJECT_TITLE, SUBJECT_CODE};
         String selection = "LOWER(" + SUBJECT_CODE + ")=? OR LOWER(" + SUBJECT_TITLE + ")=? OR (LOWER(" + SUBJECT_CODE + ")=? AND LOWER(" + SUBJECT_TITLE + ")=?)";
-        String[] selectionArgs = { subjectCode.toLowerCase(), subjectTitle.toLowerCase(), subjectCode.toLowerCase(), subjectTitle.toLowerCase() };
+        String[] selectionArgs = {subjectCode.toLowerCase(), subjectTitle.toLowerCase(), subjectCode.toLowerCase(), subjectTitle.toLowerCase()};
         Cursor cursor = db.query(TABLE_SUBJECTS, projection, selection, selectionArgs, null, null, null);
         if (cursor.getCount() > 0) return true;
         else return false;
@@ -319,12 +354,28 @@ public class database extends SQLiteOpenHelper {
     }
 
     //xoá subject
+    public void DeleteClassesBySubjectId(int subjectId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String[] whereArgs = {String.valueOf(subjectId)};
+        db.delete(TABLE_CLASS, ID_SUBJECTS + "=?", whereArgs);
+    }
+
+    public void DeleteStudentsBySubjectId(int subjectId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String[] whereArgs = {String.valueOf(subjectId)};
+        db.delete(TABLE_STUDENT, ID_CLASS + " IN (SELECT " + ID_CLASS + " FROM " + TABLE_CLASS + " WHERE " + ID_SUBJECTS + "=?)", whereArgs);
+    }
+
+
     public int DeleteSubject(int i) {
         //Chú ý:
         //getWritableDatabase(): là cả đọc và ghi
         //getReadableDatabase(): chỉ đọc
         SQLiteDatabase db = this.getWritableDatabase();
         int res = db.delete(TABLE_SUBJECTS, ID_SUBJECTS + "=" + i, null);
+        // Xóa các bản ghi liên quan trong bảng TABLE_CLASS và TABLE_STUDENT
+        DeleteStudentsBySubjectId(i);
+        DeleteClassesBySubjectId(i);
         return res;
     }
 
@@ -376,6 +427,12 @@ public class database extends SQLiteOpenHelper {
 
 
     //Xoá student
+    public int deleteStudentFromClass(int i) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        int res = db.delete(TABLE_CLASS_STUDENT, ID_STUDENT_CLASS + "=" + i, null);
+        return res;
+    }
+
     public int DeleteStudent(int i) {
         SQLiteDatabase db = this.getWritableDatabase();
         int res = db.delete(TABLE_STUDENT, ID_STUDENT + "=" + i, null);

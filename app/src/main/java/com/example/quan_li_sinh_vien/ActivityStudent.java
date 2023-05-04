@@ -277,6 +277,8 @@ public class ActivityStudent extends AppCompatActivity {
             public void onClick(View view) {
                 //xoá student trong database
                 database.DeleteStudent(id_student);
+                //xoá student khỏi lớp học
+                database.deleteStudentFromClass(id_student);
 
                 //mở lại activity student
                 Intent intent = new Intent(ActivityStudent.this,ActivityStudent.class);

@@ -232,19 +232,8 @@ public class ActivityMajor extends AppCompatActivity {
         btnYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 //xoá ngành học trong csdl
                 database.DeleteMajor(pos);
-
-                //xoá môn học trong csdl
-                database.DeleteSubject(pos);
-
-                //xoá lớp học trong csdl
-                database.DeleteClass(pos);
-
-                //xoá học sinh trong csdl
-                database.DeleteStudent(pos);
-
                 //cập nhật lại activity major
                 Intent intent = new Intent(ActivityMajor.this,ActivityMajor.class);
                 startActivity(intent);
