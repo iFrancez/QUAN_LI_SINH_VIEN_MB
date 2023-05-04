@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".ActivityAddSubject">
     <TextView
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="10dp"
         android:textColor="@color/blue"
         android:gravity="center"
         android:textStyle="bold"
@@ -28,6 +28,18 @@
         android:enabled="true"
         android:focusable="false"
         android:drawableEnd="@drawable/baseline_do_not_disturb_24">
+
+    </EditText>
+    <EditText
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:id="@+id/EditTextUpdateSubjectCode"
+        android:hint="Cập nhật tên môn học"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:enabled="true"
+        android:focusable="false"
+        android:drawableEnd="@drawable/baseline_code_off_24">
 
     </EditText>
     <EditText

@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="120dp"
         android:text="@string/qu_n_l_sinh_vi_n"
         android:textColor="@color/blue"
         android:textSize="30sp"
@@ -20,7 +20,7 @@
 
     <Button
         android:background="@drawable/background_button"
-        android:layout_marginTop="90dp"
+        android:layout_marginTop="60dp"
         android:id="@+id/buttonSubject"
         android:textColor="@color/white"
         android:layout_gravity="center"

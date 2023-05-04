@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 public class ActivitySubjectInformation extends AppCompatActivity {
 
-    TextView editTitle, editCredit, editTime, editPlace;
+    TextView editTitle, editCredit, editTime, editPlace,editCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,16 +20,19 @@ public class ActivitySubjectInformation extends AppCompatActivity {
         editPlace = findViewById(R.id.txtSubjectPlace);
         editTitle = findViewById(R.id.txtSubjectTitle);
         editTime = findViewById(R.id.txtSubjectTime);
+        editCode = findViewById(R.id.txtSubjectCode);
 
         //lấy dữ liệu
         Intent intent = getIntent();
         String title = intent.getStringExtra("title");
+        String code = intent.getStringExtra("code");
         int credit = intent.getIntExtra("credit", 0);
         String time = intent.getStringExtra("time");
         String place = intent.getStringExtra("place");
 
         //Gán giá trị lên
         editTitle.setText(title);
+        editCode.setText(code);
         editTime.setText(time);
         editPlace.setText(place);
         editCredit.setText(credit + "");

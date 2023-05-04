@@ -7,37 +7,77 @@ public class Subject {
     private int id;
     //tên môn học
     private String subject_title;
+    //mã học phần
+    private String course_code;
     //id tín chỉ
     private int number_of_credit;
     //thời gian học
     private String time;
     //địa điểm
     private String place;
+
     //id major
     private int id_major;
 
-    public Subject(String subject_title, int number_of_credit, String time, String place) {
+
+
+//    public Subject(String subject_title, int number_of_credit, String time, String place) {
+//        this.subject_title = subject_title;
+//        this.number_of_credit = number_of_credit;
+//        this.time = time;
+//        this.place = place;
+//    }
+//
+//    public Subject(String subject_title, int number_of_credit, String time, String place, int id_major) {
+//        this.subject_title = subject_title;
+//        this.number_of_credit = number_of_credit;
+//        this.time = time;
+//        this.place = place;
+//        this.id_major = id_major;
+//    }
+//
+//    public Subject(int id, String subject_title, int number_of_credit, String time, String place, int id_major) {
+//        this.id = id;
+//        this.subject_title = subject_title;
+//        this.number_of_credit = number_of_credit;
+//        this.time = time;
+//        this.place = place;
+//        this.id_major = id_major;
+//    }
+
+    public Subject(String subject_title, String course_code, int number_of_credit, String time, String place) {
         this.subject_title = subject_title;
+        this.course_code = course_code;
         this.number_of_credit = number_of_credit;
         this.time = time;
         this.place = place;
     }
 
-    public Subject(String subject_title, int number_of_credit, String time, String place, int id_major) {
+    public Subject(String subject_title, String course_code, int number_of_credit, String time, String place, int id_major) {
         this.subject_title = subject_title;
+        this.course_code = course_code;
         this.number_of_credit = number_of_credit;
         this.time = time;
         this.place = place;
         this.id_major = id_major;
     }
 
-    public Subject(int id, String subject_title, int number_of_credit, String time, String place, int id_major) {
+    public Subject(int id, String subject_title, String course_code, int number_of_credit, String time, String place, int id_major) {
         this.id = id;
         this.subject_title = subject_title;
+        this.course_code = course_code;
         this.number_of_credit = number_of_credit;
         this.time = time;
         this.place = place;
         this.id_major = id_major;
+    }
+
+    public String getCourse_code() {
+        return course_code;
+    }
+
+    public void setCourse_code(String course_code) {
+        this.course_code = course_code;
     }
 
     public int getId_major() {

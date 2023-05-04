@@ -39,10 +39,11 @@ public class database extends SQLiteOpenHelper {
     private static String TABLE_SUBJECTS = "subject";
     private static String ID_SUBJECTS = "idsubject";
     private static String SUBJECT_TITLE = "subjecttitle";
+    private static String SUBJECT_CODE = "subjectcode";
     private static String CREDITS = "credits";
     private static String TIME = "time";
     private static String PLACE = "place";
-//    private static int VERSION = 1;
+
 
     //Bảng lớp và giảng viên
     private static String TABLE_CLASS = "class";
@@ -90,6 +91,7 @@ public class database extends SQLiteOpenHelper {
     //Tạo bảng môn học
     private String SQLQuery2 = "CREATE TABLE " + TABLE_SUBJECTS + " ( " + ID_SUBJECTS + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + SUBJECT_TITLE + " TEXT, "
+            + SUBJECT_CODE + " TEXT, "
             + CREDITS + " INTEGER, "
             + TIME + " TEXT, "
             + PLACE + " TEXT, "
@@ -115,14 +117,14 @@ public class database extends SQLiteOpenHelper {
             + DATE_OF_BIRTH + " TEXT, "
             + STUDY_PROCESS + " REAL DEFAULT 0, "
             + MID_TERM + " REAL DEFAULT 0, "
-            + END_TERM +" REAL DEFAULT 0, "
+            + END_TERM + " REAL DEFAULT 0, "
             + AVEGE_TERM + " REAL DEFAULT 0, "
             + ID_CLASS + " INTEGER , FOREIGN KEY ( " + ID_CLASS + " ) REFERENCES " +
             TABLE_CLASS + "(" + ID_CLASS + "))";
 
     //Tạo bảng class_student
     private String SQLQuery5 = "CREATE TABLE " + TABLE_CLASS_STUDENT + " ( "
-            + ID_STUDENT_CLASS+ " integer primary key AUTOINCREMENT, "
+            + ID_STUDENT_CLASS + " integer primary key AUTOINCREMENT, "
             + ID_CLASS + " INTEGER, "
             + STUDENT_CODE + " TEXT, "
             + "FOREIGN KEY (" + STUDENT_CODE + ") REFERENCES " + TABLE_STUDENT + "(" + STUDENT_CODE + "), "
@@ -240,18 +242,19 @@ public class database extends SQLiteOpenHelper {
     }
 
     //update lớp
-    public boolean UpdateClass(ClassSub classSub,int id){
+    public boolean UpdateClass(ClassSub classSub, int id) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(CLASS_TITLE,classSub.getClass_name());
-        values.put(CLASS_CODE,classSub.getClass_code());
-        values.put(TEACHER_NAME,classSub.getTeacher_name());
-        values.put(TEACHER_SEX,classSub.getTeacher_sex());
-        values.put(TEACHER_CODE,classSub.getTeacher_code());
-        values.put(TEACHER_BIRTH,classSub.getTeacher_birth());
+        values.put(CLASS_TITLE, classSub.getClass_name());
+        values.put(CLASS_CODE, classSub.getClass_code());
+        values.put(TEACHER_NAME, classSub.getTeacher_name());
+        values.put(TEACHER_SEX, classSub.getTeacher_sex());
+        values.put(TEACHER_CODE, classSub.getTeacher_code());
+        values.put(TEACHER_BIRTH, classSub.getTeacher_birth());
         db.update(TABLE_CLASS, values, ID_CLASS + "=" + id, null);
         return true;
     }
+
     //kiểm tra xem có mã giảng viên và mã lớp đó hay chưa
     public Boolean checkClass(String classCode) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -269,6 +272,7 @@ public class database extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(SUBJECT_TITLE, subject.getSubject_title());
+        values.put(SUBJECT_CODE, subject.getCourse_code());
         values.put(CREDITS, subject.getNumber_of_credit());
         values.put(TIME, subject.getTime());
         values.put(PLACE, subject.getPlace());
@@ -278,16 +282,16 @@ public class database extends SQLiteOpenHelper {
     }
 
 
-    //kiểm tra xem có tên môn học đó hay chưa
-    public Boolean checkSubject(String subjectTitle) {
+    //kiểm tra xem có tên môn học và mã học phần đó hay chưa
+    public Boolean checkSubject(String subjectTitle,String subjectCode) {
         //projection: là một mảng các cột cần lấy ra từ bảng.
         //selection: là chuỗi điều kiện để chọn các bản ghi phù hợp.
         //selectionArgs: là một mảng các giá trị được truyền vào trong chuỗi điều kiện.
         //query(): là phương thức để thực hiện câu truy vấn trên bảng, và trả về một đối tượng Cursor chứa các bản ghi phù hợp.
         SQLiteDatabase db = this.getReadableDatabase();
-        String[] projection = {SUBJECT_TITLE};
-        String selection = "LOWER(" + SUBJECT_TITLE + ")=?";
-        String[] selectionArgs = {subjectTitle.toLowerCase()};
+        String[] projection = {SUBJECT_TITLE, SUBJECT_CODE};
+        String selection = "LOWER(" + SUBJECT_CODE + ")=? OR LOWER(" + SUBJECT_TITLE + ")=? OR (LOWER(" + SUBJECT_CODE + ")=? AND LOWER(" + SUBJECT_TITLE + ")=?)";
+        String[] selectionArgs = { subjectCode.toLowerCase(), subjectTitle.toLowerCase(), subjectCode.toLowerCase(), subjectTitle.toLowerCase() };
         Cursor cursor = db.query(TABLE_SUBJECTS, projection, selection, selectionArgs, null, null, null);
         if (cursor.getCount() > 0) return true;
         else return false;
@@ -298,6 +302,7 @@ public class database extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(SUBJECT_TITLE, subject.getSubject_title());
+        values.put(SUBJECT_CODE, subject.getCourse_code());
         values.put(CREDITS, subject.getNumber_of_credit());
         values.put(TIME, subject.getTime());
         values.put(PLACE, subject.getPlace());
@@ -362,8 +367,6 @@ public class database extends SQLiteOpenHelper {
     }
 
 
-
-
     //Lấy tất cả sinh viên thuộc môn học đó
     public Cursor getDataStudent(int id_subject) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -388,9 +391,9 @@ public class database extends SQLiteOpenHelper {
         values.put(SEX, student.getSex());
         values.put(DATE_OF_BIRTH, student.getDate_of_birth());
         values.put(STUDY_PROCESS, student.getPoint_process());
-        values.put(MID_TERM,student.getMidterm_score());
-        values.put(END_TERM,student.getFinal_score());
-        values.put(AVEGE_TERM,student.getAvege_score());
+        values.put(MID_TERM, student.getMidterm_score());
+        values.put(END_TERM, student.getFinal_score());
+        values.put(AVEGE_TERM, student.getAvege_score());
         db.update(TABLE_STUDENT, values, ID_STUDENT + " = " + id, null);
         boolean isStudentDate = isValidDate(student.getDate_of_birth());
         if (isStudentDate) {

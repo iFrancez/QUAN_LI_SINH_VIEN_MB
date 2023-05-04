@@ -19,7 +19,7 @@
         android:id="@+id/editTextSearchSubject"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Tìm kiếm tên môn học"
+        android:hint="Tìm kiếm mã học phần"
         android:drawableEnd="@drawable/baseline_search_24"/>
 
     <LinearLayout

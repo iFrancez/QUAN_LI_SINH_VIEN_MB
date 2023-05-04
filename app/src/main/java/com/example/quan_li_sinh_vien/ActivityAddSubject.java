@@ -18,7 +18,7 @@ public class ActivityAddSubject extends AppCompatActivity {
 
 
     Button buttonAddSubject;
-    EditText editSubjectTitle,editSubjectCredit,editSubjectTime,editSubjectPlace;
+    EditText editSubjectTitle,editSubjectCredit,editSubjectTime,editSubjectPlace,editSubjectCode;
     com.example.quan_li_sinh_vien.database.database database;
 
     @Override
@@ -32,6 +32,7 @@ public class ActivityAddSubject extends AppCompatActivity {
         editSubjectTime = findViewById(R.id.EditTextSubjectTime);
         editSubjectPlace = findViewById(R.id.EditTextSubjectPlace);
         editSubjectTitle = findViewById(R.id.EditTextSubjectTitle);
+        editSubjectCode = findViewById(R.id.EditTextSubjectCode);
 
         //lấy id major
         Intent intent = getIntent();
@@ -65,17 +66,18 @@ public class ActivityAddSubject extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String subjectTitle = editSubjectTitle.getText().toString().trim();
+                String subjectCode = editSubjectCode.getText().toString().trim();
                 String credit = editSubjectCredit.getText().toString().trim();
                 String place = editSubjectPlace.getText().toString().trim();
                 String time = editSubjectTime.getText().toString().trim();
 
                 //Nếu dữ liệu chưa nhập đầy đủ
-                if(subjectTitle.equals("")||credit.equals("")||time.equals("")||place.equals("")){
+                if(subjectTitle.equals("")||credit.equals("")||time.equals("")||place.equals("")||subjectCode.equals("")){
                     Toast.makeText(ActivityAddSubject.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    Boolean checkSub = database.checkSubject(subjectTitle);
-                    if(!checkSub) {
+                    Boolean checkCodeSub = database.checkSubject(subjectTitle,subjectCode);
+                    if(!checkCodeSub) {
                         //gán cho đối tượng subject giá trị được nhập vào
                         Subject subject = CreatSubject(id_major);
 
@@ -90,7 +92,7 @@ public class ActivityAddSubject extends AppCompatActivity {
                         Toast.makeText(ActivityAddSubject.this, "Thêm môn học thành công", Toast.LENGTH_SHORT).show();
                     }
                     else{
-                        Toast.makeText(ActivityAddSubject.this, "Môn học đã tồn tại ! Vui lòng thử lại", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ActivityAddSubject.this, "Tên môn học hoặc mã học phần hoặc cả hai đã tồn tại ! Vui lòng thử lại", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -109,11 +111,12 @@ public class ActivityAddSubject extends AppCompatActivity {
     //Tạo môn học
     private Subject CreatSubject(int id_major){
         String subjectTitle = editSubjectTitle.getText().toString().trim();
+        String subjectCode = editSubjectCode.getText().toString().trim();
         int credit = Integer.parseInt(editSubjectCredit.getText().toString().trim());
         String place = editSubjectPlace.getText().toString().trim();
         String time = editSubjectTime.getText().toString().trim();
 
-        Subject subject = new Subject(subjectTitle,credit,time,place,id_major);
+        Subject subject = new Subject(subjectTitle,subjectCode,credit,time,place,id_major);
         return subject;
     }
 }

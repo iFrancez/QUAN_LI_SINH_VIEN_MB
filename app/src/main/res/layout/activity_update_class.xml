@@ -24,7 +24,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:drawableEnd="@drawable/baseline_class_24"
-        android:hint="Cập nhật lớp"></EditText>
+        android:hint="Cập nhật tên lớp"></EditText>
 
     <EditText
         android:id="@+id/EditTextUpdateClassCode"

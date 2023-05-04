@@ -45,14 +45,14 @@ public class adaptersubject extends BaseAdapter {
         view = inflater.inflate(R.layout.listsubject, null);
 
         TextView TextViewSubjectTitle = view.findViewById(R.id.TextViewSubjectTitle);
-        TextView TextViewCredit = view.findViewById(R.id.TextViewCredit);
+        TextView TextViewSubjectCode = view.findViewById(R.id.TextViewCodeSubject);
         ImageButton imageDelete = view.findViewById(R.id.subjectdelete);
         ImageButton imageInformation = view.findViewById(R.id.subjectinformation);
         ImageButton imageUpdate = view.findViewById(R.id.subjectupdate);
 
         Subject subject = ArrayListSubject.get(i);
 
-        TextViewCredit.setText(subject.getNumber_of_credit()+"");
+        TextViewSubjectCode.setText(subject.getCourse_code());
         TextViewSubjectTitle.setText(subject.getSubject_title());
 
         int id = subject.getId();

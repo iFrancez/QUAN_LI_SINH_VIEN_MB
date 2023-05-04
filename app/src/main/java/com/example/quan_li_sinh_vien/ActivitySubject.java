@@ -69,12 +69,13 @@ public class ActivitySubject extends AppCompatActivity {
         while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
             String title = cursor.getString(1);
-            int credit = cursor.getInt(2);
-            String time = cursor.getString(3);
-            String place = cursor.getString(4);
-            int id_mj = cursor.getInt(5);
+            String code = cursor.getString(2);
+            int credit = cursor.getInt(3);
+            String time = cursor.getString(4);
+            String place = cursor.getString(5);
+            int id_mj = cursor.getInt(6);
 
-            ArrayListSubject.add(new Subject(id, title, credit, time, place,id_mj));
+            ArrayListSubject.add(new Subject(id, title,code, credit, time, place,id_mj));
 
         }
 
@@ -103,12 +104,13 @@ public class ActivitySubject extends AppCompatActivity {
                 while (cursor.moveToNext()) {
                     int id = cursor.getInt(0);
                     String title = cursor.getString(1);
-                    int credit = cursor.getInt(2);
-                    String time = cursor.getString(3);
-                    String place = cursor.getString(4);
-                    int id_mj = cursor.getInt(5);
+                    String code = cursor.getString(2);
+                    int credit = cursor.getInt(3);
+                    String time = cursor.getString(4);
+                    String place = cursor.getString(5);
+                    int id_mj = cursor.getInt(6);
 
-                    ArrayListSubject.add(new Subject(id, title, credit, time, place,id_mj));
+                    ArrayListSubject.add(new Subject(id, title,code, credit, time, place,id_mj));
                 }
                 cursor.close();
 
@@ -146,7 +148,7 @@ public class ActivitySubject extends AppCompatActivity {
     private void searchSubjects(String searchQuery) {
         searchResults.clear();
         for (Subject subject : ArrayListSubject) {
-            if (subject.getSubject_title().toLowerCase().contains(searchQuery.toLowerCase())) {
+            if (subject.getCourse_code().toLowerCase().contains(searchQuery.toLowerCase())) {
                 searchResults.add(subject);
             }
         }
@@ -213,12 +215,14 @@ public class ActivitySubject extends AppCompatActivity {
 
                 intent.putExtra("id", id);
                 String title = cursor.getString(1);
-                int credit = cursor.getInt(2);
-                String time = cursor.getString(3);
-                String place = cursor.getString(4);
+                String code = cursor.getString(2);
+                int credit = cursor.getInt(3);
+                String time = cursor.getString(4);
+                String place = cursor.getString(5);
 
 
                 intent.putExtra("title", title);
+                intent.putExtra("code", code);
                 intent.putExtra("credit", credit);
                 intent.putExtra("time", time);
                 intent.putExtra("place", place);
@@ -288,14 +292,17 @@ public class ActivitySubject extends AppCompatActivity {
             if (id == pos) {
                 Intent intent = new Intent(ActivitySubject.this, ActivityUpdateSubject.class);
                 String title = cursor.getString(1);
-                int credit = cursor.getInt(2);
-                String time = cursor.getString(3);
-                String place = cursor.getString(4);
-                int id_mj = cursor.getInt(5);
+                String code = cursor.getString(2);
+                int credit = cursor.getInt(3);
+                String time = cursor.getString(4);
+                String place = cursor.getString(5);
+                int id_mj = cursor.getInt(6);
+
 
                 //Gửi dữ liệu qua activity update
                 intent.putExtra("id", id);
                 intent.putExtra("title", title);
+                intent.putExtra("code",code);
                 intent.putExtra("credit", credit);
                 intent.putExtra("time", time);
                 intent.putExtra("place", place);

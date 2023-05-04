@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".ActivityAddSubject">
     <TextView
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="10dp"
         android:textSize="25sp"
         android:gravity="center"
         android:textStyle="bold"
@@ -24,6 +24,15 @@
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:drawableEnd="@drawable/baseline_subtitles_24">
+    </EditText>
+    <EditText
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:id="@+id/EditTextSubjectCode"
+        android:hint="Mã học phần"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:drawableEnd="@drawable/baseline_code_24">
     </EditText>
     <EditText
         android:layout_marginTop="20dp"
