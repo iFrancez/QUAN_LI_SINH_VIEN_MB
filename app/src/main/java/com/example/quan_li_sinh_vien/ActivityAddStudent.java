@@ -102,6 +102,8 @@ public class ActivityAddStudent extends AppCompatActivity {
                     Toast.makeText(ActivityAddStudent.this, "Ngày sinh không hợp lệ", Toast.LENGTH_SHORT).show();
                 }else {
                     boolean checkStudents = database.checkStudentExistsInClass(id_class, code); // kiểm tra sinh viên đã tồn tại trong lớp hay chưa
+                                                                                                // có thể cho học sinh đó vào lớp khác khi học sinh muốn chuyển lớp
+                                                                                                // nhưng phải xoá học sinh đó ở lớp trước
                     if (!checkStudents) {
                         Student student = CreateStudent(id_class);
 
