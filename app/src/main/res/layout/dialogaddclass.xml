@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Bạn muốn thêm lớp học không ?\nKhông thể thay đổi mã số giảng viên và mã lớp nếu đã thêm vào danh sách"
+        android:text="Bạn muốn thêm lớp học không ?\nKhông thể thay đổi mã lớp nếu đã thêm vào danh sách"
         android:textSize="22sp"></TextView>
 
     <LinearLayout

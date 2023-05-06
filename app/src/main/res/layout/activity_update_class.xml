@@ -89,9 +89,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
         android:hint="Cập nhật mã giảng viên"
-        android:enabled="true"
-        android:drawableEnd="@drawable/baseline_code_off_24"
-        android:focusable="false"></EditText>
+        android:drawableEnd="@drawable/baseline_code_24"></EditText>
 
     <EditText
         android:id="@+id/EditTextUpdateTeacherBirth"

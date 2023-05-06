@@ -32,21 +32,22 @@
                 android:text="Mã lớp: "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"></TextView>
-            <TextView
-                android:id="@+id/TextViewCodeClass"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                android:text="3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></TextView>
+
         </LinearLayout>
+        <TextView
+            android:id="@+id/TextViewCodeClass"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:text="3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></TextView>
     </LinearLayout>
 
     <ImageButton
         android:id="@+id/classinformation"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="35dp"
         android:src="@drawable/baseline_subject_24"
         tools:ignore="SpeakableTextPresentCheck"></ImageButton>
 
@@ -55,7 +56,7 @@
         android:id="@+id/classupdate"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="35dp"
         android:src="@drawable/baseline_update_24"
         tools:ignore="SpeakableTextPresentCheck"></ImageButton>
 
@@ -64,7 +65,7 @@
         android:id="@+id/classdelete"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="35dp"
         android:src="@drawable/baseline_delete_24"
         tools:ignore="SpeakableTextPresentCheck"></ImageButton>
 </LinearLayout>

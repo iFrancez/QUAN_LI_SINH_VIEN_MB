@@ -11,7 +11,10 @@
         android:layout_width="210dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="15dp">
+        android:paddingTop="15dp"
+        android:paddingLeft="5dp"
+        android:paddingBottom="15dp"
+        android:paddingRight="5dp">
 
         <TextView
             android:textColor="#FFFFFF"
@@ -30,21 +33,22 @@
                 android:text="MSSV: "
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"></TextView>
-            <TextView
-                android:id="@+id/TextViewStudentCode"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                android:text="3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></TextView>
         </LinearLayout>
+        <TextView
+            android:id="@+id/TextViewStudentCode"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:text="3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></TextView>
     </LinearLayout>
 
     <ImageButton
         android:id="@+id/studentinformation"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginLeft="0dp"
         android:src="@drawable/baseline_subject_24"
         tools:ignore="SpeakableTextPresentCheck"></ImageButton>
 
@@ -53,7 +57,7 @@
         android:id="@+id/studentupdate"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="35dp"
         android:src="@drawable/baseline_update_24"
         tools:ignore="SpeakableTextPresentCheck"></ImageButton>
 
@@ -62,7 +66,7 @@
         android:id="@+id/studentdelete"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="35dp"
         android:src="@drawable/baseline_delete_24"
         tools:ignore="SpeakableTextPresentCheck"></ImageButton>
 </LinearLayout>
