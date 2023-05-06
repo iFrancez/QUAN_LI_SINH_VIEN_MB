@@ -88,7 +88,7 @@ public class ActivityMajor extends AppCompatActivity {
         buttonRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                searchResultsMajor.clear();
                 // Tải lại dữ liệu ban đầu
                 ArrayListMajor.clear();
                 Cursor cursor = database.getDataMajor();

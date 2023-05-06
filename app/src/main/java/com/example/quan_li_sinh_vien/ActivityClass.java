@@ -105,7 +105,7 @@ public class ActivityClass extends AppCompatActivity {
         buttonRefreshClass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                searchResultsClass.clear();
                 // Tải lại dữ liệu ban đầu
                 ArrayListClass.clear();
                 Cursor cursor = database.getDataClass(id_subject);
