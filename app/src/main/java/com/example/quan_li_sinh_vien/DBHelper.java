@@ -10,6 +10,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
+
 public class DBHelper extends SQLiteOpenHelper {
 
     public static final String DBNAME = "Login.db";
@@ -33,7 +35,8 @@ public class DBHelper extends SQLiteOpenHelper {
         SQLiteDatabase MyDB = this.getWritableDatabase();
         ContentValues contentValues=new ContentValues();
         contentValues.put("username",username);
-        contentValues.put("password",password);
+        //mã hoá mật khẩu
+        contentValues.put("password", BCrypt.withDefaults().hashToString(12, password.toCharArray()));
         contentValues.put("number", number);
         contentValues.put("date", date);
 
@@ -51,11 +54,16 @@ public class DBHelper extends SQLiteOpenHelper {
         if(cursor.getCount()>0) return true;
         else return false;
     }
-    public Boolean checkusernamepassword(String username, String password ){
+    public boolean checkusernamepassword(String username, String password) {
         SQLiteDatabase MyDB = this.getWritableDatabase();
-        Cursor cursor = MyDB.rawQuery("Select * from users where username = ? and password = ?",new String[]{username,password});
-        if(cursor.getCount()>0) return true;
-        else return false;
+        Cursor cursor = MyDB.rawQuery("SELECT password FROM users WHERE username = ?", new String[]{username});
+        if (cursor.moveToFirst()) {
+            String hashedPassword = cursor.getString(0);
+            //so sánh nếu giống mã hoá thì return
+            return BCrypt.verifyer().verify(password.toCharArray(), hashedPassword).verified;
+        }
+        return false;
     }
+
 
 }

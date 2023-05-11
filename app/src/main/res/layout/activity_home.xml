@@ -34,7 +34,7 @@
         android:id="@+id/buttonAuthor"
         android:textColor="@color/white"
         android:layout_gravity="center"
-        android:text="@string/t_c_gi"
+        android:text="Thành viên nhóm"
         android:layout_width="180dp"
         android:layout_height="wrap_content"/>
 
