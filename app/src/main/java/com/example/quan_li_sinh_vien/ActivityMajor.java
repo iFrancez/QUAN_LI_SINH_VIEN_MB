@@ -146,7 +146,7 @@ public class ActivityMajor extends AppCompatActivity {
             listViewMajor.setAdapter(adaptermajor);
             adaptermajor.notifyDataSetChanged();
         } else {
-            Toast.makeText(this, "Không tìm thấy mã ngành học", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Không tìm thấy ngành học", Toast.LENGTH_SHORT).show();
             adaptermajor.clear();
             listViewMajor.setAdapter(adaptermajor);
         }

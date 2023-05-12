@@ -157,7 +157,7 @@ public class ActivitySubject extends AppCompatActivity {
             listViewSubject.setAdapter(adaptersubject);
             adaptersubject.notifyDataSetChanged();
         } else {
-            Toast.makeText(this, "Không tìm thấy tên môn học", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Không tìm thấy môn học", Toast.LENGTH_SHORT).show();
             adaptersubject.clear();
             listViewSubject.setAdapter(adaptersubject);
         }
